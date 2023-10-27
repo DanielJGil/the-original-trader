@@ -13,6 +13,17 @@ import Toolbar from "@mui/material/Toolbar";
 import { HiOutlineCog6Tooth, HiOutlineHome } from "react-icons/hi2";
 import { BsGraphUpArrow } from "react-icons/bs";
 
+import { Outlet, NavLink } from "react-router-dom";
+import styled from "@emotion/styled";
+
+const RouterLink = styled(NavLink)(({ theme }) => ({
+  color: "black",
+
+  "&.active": {
+    color: "#4338ca",
+  },
+}));
+
 const drawerWidth = 260;
 
 function AppLayout(props) {
@@ -34,11 +45,10 @@ function AppLayout(props) {
               padding: "1rem",
               display: "flex",
             }}
+            component={RouterLink}
+            to="/dashboard"
           >
-            <HiOutlineHome
-              size={25}
-              style={{ color: "#4338ca", marginLeft: "1rem" }}
-            />
+            <HiOutlineHome size={25} style={{ marginLeft: "1rem" }} />
             <span>Home</span>
           </ListItemButton>
         </ListItem>
@@ -47,6 +57,8 @@ function AppLayout(props) {
           <ListItemButton
             className="flex gap-3 items-center justify-center"
             sx={{ borderRadius: "10px", padding: "1rem" }}
+            component={RouterLink}
+            to="/trades"
           >
             <BsGraphUpArrow size={21} style={{ marginLeft: "1rem" }} />
             <span>Trades</span>
@@ -57,6 +69,8 @@ function AppLayout(props) {
           <ListItemButton
             className="flex gap-3 items-center justify-center"
             sx={{ borderRadius: "10px", padding: "1rem" }}
+            component={RouterLink}
+            to="/settings"
           >
             <HiOutlineCog6Tooth size={25} style={{ marginLeft: "1rem" }} />
             <span>Settings</span>
@@ -107,7 +121,7 @@ function AppLayout(props) {
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true,
           }}
           sx={{
             display: { xs: "block", sm: "none" },
@@ -142,6 +156,9 @@ function AppLayout(props) {
         }}
       >
         <Toolbar />
+        <div>
+          <Outlet />
+        </div>
       </Box>
     </Box>
   );
