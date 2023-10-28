@@ -49,7 +49,7 @@ function AppLayout(props) {
             to="/dashboard"
           >
             <HiOutlineHome size={25} style={{ marginLeft: "1rem" }} />
-            <span>Home</span>
+            <span>Dashboard</span>
           </ListItemButton>
         </ListItem>
 
