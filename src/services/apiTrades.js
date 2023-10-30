@@ -10,3 +10,14 @@ export async function getTrades() {
 
   return trades;
 }
+
+export async function deleteTrade(id) {
+  const { data, error } = await supabase.from("trades").delete().eq("id", id);
+
+  if (error) {
+    console.error(error);
+    throw new Error("Trade could not be deleted");
+  }
+
+  return data;
+}

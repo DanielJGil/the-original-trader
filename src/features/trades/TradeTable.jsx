@@ -1,5 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
-import { getTrades } from "../../services/apiTrades";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { deleteTrade, getTrades } from "../../services/apiTrades";
 
 import { useState } from "react";
 
@@ -8,13 +8,24 @@ import { DataGrid } from "@mui/x-data-grid";
 import BasicModal from "../../ui/Modal";
 import { Button, Typography } from "@mui/material";
 import clsx from "clsx";
-// import Box from "@mui/material/Box";
-// import Typography from "@mui/material/Typography";
-// import Modal from "@mui/material/Modal";
 
 const columns = [
   { field: "date", headerName: "Date", width: 220 },
-  { field: "type", headerName: "Type", width: 150 },
+  {
+    field: "type",
+    headerName: "Type",
+    width: 150,
+    cellClassName: (params) => {
+      if (params.value === null) {
+        return "";
+      }
+
+      return clsx("color", {
+        negative: params.value === "sell",
+        positive: params.value === "buy",
+      });
+    },
+  },
   { field: "pair", headerName: "Pair", width: 180 },
   { field: "session", headerName: "Session", width: 220 },
   {
@@ -26,11 +37,10 @@ const columns = [
     field: "profit",
     headerName: "Profit",
     type: "number",
-    // sortable: false,
     width: 150,
     align: "right",
     cellClassName: (params) => {
-      if (params.value == null) {
+      if (params.value === null) {
         return "";
       }
 
@@ -42,10 +52,44 @@ const columns = [
   },
 ];
 
+const optionsModalStyle = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 300,
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  p: 4,
+  borderRadius: "10px",
+};
+
+const deleteModalStyle = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  p: 4,
+  borderRadius: "10px",
+
+  backdrop: "none",
+};
+
 export default function DataTable() {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [selectedRowId, setSelectedRowId] = useState("");
+
+  const [optionsModalOpen, setOptionsModalOpen] = useState(false);
+  const handleOptionsModalOpen = () => setOptionsModalOpen(true);
+  const handleOptionsModalClose = () => setOptionsModalOpen(false);
+
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const handleDeleteModalOpen = () => setDeleteModalOpen(true);
+  const handleDeleteModalClose = () => setDeleteModalOpen(false);
+
+  const queryClient = useQueryClient();
 
   const {
     data: trades,
@@ -54,6 +98,15 @@ export default function DataTable() {
   } = useQuery({
     queryKey: ["trades"],
     queryFn: getTrades,
+  });
+
+  const { mutate, isLoading: isDeleting } = useMutation({
+    mutationFn: deleteTrade,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["trades"],
+      });
+    },
   });
 
   if (isLoading) return <p>Loading...</p>;
@@ -67,11 +120,9 @@ export default function DataTable() {
           },
           "& .color.negative": {
             color: "#dc2626",
-            // fontWeight: "600",
           },
           "& .color.positive": {
             color: "#16a34a",
-            // fontWeight: "600",
           },
         }}
         rows={trades}
@@ -84,22 +135,68 @@ export default function DataTable() {
         pageSizeOptions={[5, 10]}
         autoHeight
         onRowClick={(rows) => {
-          handleOpen();
+          handleOptionsModalOpen();
+          setSelectedRowId(rows.id);
         }}
+        rowSelection={false}
       />
 
-      {open && (
-        <BasicModal open={open} handleClose={handleClose}>
-          {/* <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography> */}
+      {optionsModalOpen && (
+        <BasicModal
+          open={optionsModalOpen}
+          handleClose={handleOptionsModalClose}
+          style={optionsModalStyle}
+        >
           <div className="flex justify-evenly">
             <Button variant="outlined">View</Button>
-            <Button color="error" variant="outlined">
+            <Button
+              color="error"
+              variant="outlined"
+              onClick={() => {
+                handleDeleteModalOpen();
+              }}
+            >
               Delete
+            </Button>
+          </div>
+        </BasicModal>
+      )}
+
+      {deleteModalOpen && (
+        <BasicModal
+          open={deleteModalOpen}
+          handleClose={() => {
+            handleDeleteModalClose();
+            handleOptionsModalClose();
+          }}
+          style={deleteModalStyle}
+        >
+          <div className="mb-6 ml-5">
+            <Typography id="modal-modal-description" sx={{ mt: 0 }}>
+              Are you sure you want to delete this trade? This action can't be
+              undone.
+            </Typography>
+          </div>
+          <div className="flex justify-evenly">
+            <Button
+              color="error"
+              variant="contained"
+              onClick={() => {
+                mutate(selectedRowId);
+                handleOptionsModalClose();
+                handleDeleteModalClose();
+              }}
+            >
+              Delete
+            </Button>
+            <Button
+              variant="outlined"
+              onClick={() => {
+                handleOptionsModalClose();
+                handleDeleteModalClose();
+              }}
+            >
+              Cancel
             </Button>
           </div>
         </BasicModal>
