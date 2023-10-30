@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import TradeTable from "../features/trades/TradeTable";
 
 function Trades() {
@@ -5,7 +6,9 @@ function Trades() {
     <>
       <div className="flex justify-between mb-5">
         <h1 className="font-semibold text-xl">Trades</h1>
-        <p>Filter / Sort</p>
+        <Button size="small" variant="contained">
+          Add new trade
+        </Button>
       </div>
 
       <div>
