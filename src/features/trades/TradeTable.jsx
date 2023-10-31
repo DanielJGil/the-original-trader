@@ -5,9 +5,10 @@ import { useState } from "react";
 
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import BasicModal from "../../ui/Modal";
+import BasicModal from "../../ui/BasicModal";
 import { Button, Typography } from "@mui/material";
 import clsx from "clsx";
+import toast from "react-hot-toast";
 
 const columns = [
   { field: "date", headerName: "Date", width: 220 },
@@ -100,13 +101,16 @@ export default function DataTable() {
     queryFn: getTrades,
   });
 
-  const { mutate, isLoading: isDeleting } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: deleteTrade,
     onSuccess: () => {
+      toast.success("Trade successfully deleted");
+
       queryClient.invalidateQueries({
         queryKey: ["trades"],
       });
     },
+    onError: (err) => toast.error(err.message),
   });
 
   if (isLoading) return <p>Loading...</p>;
@@ -140,7 +144,6 @@ export default function DataTable() {
         }}
         rowSelection={false}
       />
-
       {optionsModalOpen && (
         <BasicModal
           open={optionsModalOpen}
@@ -161,7 +164,6 @@ export default function DataTable() {
           </div>
         </BasicModal>
       )}
-
       {deleteModalOpen && (
         <BasicModal
           open={deleteModalOpen}

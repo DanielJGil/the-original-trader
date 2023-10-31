@@ -92,7 +92,7 @@ function AppLayout(props) {
         elevation={0}
         position="fixed"
         sx={{
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          width: { md: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
           backgroundColor: "#fff",
         }}
@@ -103,7 +103,15 @@ function AppLayout(props) {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" }, color: "#000" }}
+            sx={{
+              mr: 4,
+              display: { sm: "block", md: "none" },
+              color: "#000",
+              paddingRight: { sm: 1.6 },
+              paddingLeft: { sm: 1.6 },
+              paddingTop: { sm: 0.8 },
+              paddingBottom: { sm: 1 },
+            }}
           >
             <MenuIcon />
           </IconButton>
@@ -112,7 +120,7 @@ function AppLayout(props) {
 
       <Box
         component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+        sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
         aria-label="mailbox folders"
       >
         <Drawer
@@ -124,7 +132,7 @@ function AppLayout(props) {
             keepMounted: true,
           }}
           sx={{
-            display: { xs: "block", sm: "none" },
+            display: { xs: "block", sm: "block", md: "none" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
@@ -136,7 +144,7 @@ function AppLayout(props) {
         <Drawer
           variant="permanent"
           sx={{
-            display: { xs: "none", sm: "block" },
+            display: { xs: "none", sm: "none", md: "block" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
@@ -156,7 +164,7 @@ function AppLayout(props) {
         }}
       >
         <Toolbar />
-        <div>
+        <div className="max-w-[70rem] m-[0_auto]">
           <Outlet />
         </div>
       </Box>

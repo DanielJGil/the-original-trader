@@ -1,5 +1,11 @@
+import CreateTradeForm from "../features/trades/CreateTradeForm";
+
 function NewTrade() {
-  return <div>New Trade</div>;
+  return (
+    <div>
+      <CreateTradeForm />
+    </div>
+  );
 }
 
 export default NewTrade;
