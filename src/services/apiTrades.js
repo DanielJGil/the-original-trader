@@ -1,6 +1,7 @@
 import supabase from "./supabase";
 
 export async function getTrades() {
+  // GET TRADES
   const { data: trades, error } = await supabase.from("trades").select("*");
 
   if (error) {
@@ -12,6 +13,9 @@ export async function getTrades() {
 }
 
 export async function createTrade(newTrade) {
+  // https://tocnvuzfmuymgykvcodp.supabase.co/storage/v1/object/public/trade-images/GBPUSD_2023-11-01_13-30-50.png
+
+  // CREATE TRADE
   const { data, error } = await supabase.from("trades").insert([newTrade]);
 
   if (error) {
@@ -19,10 +23,13 @@ export async function createTrade(newTrade) {
     throw new Error("Trade could not be created");
   }
 
+  // UPLOAD IMAGE
+
   return data;
 }
 
 export async function deleteTrade(id) {
+  // DELETE TRADE
   const { data, error } = await supabase.from("trades").delete().eq("id", id);
 
   if (error) {

@@ -9,6 +9,7 @@ import BasicModal from "../../ui/BasicModal";
 import { Button, Typography } from "@mui/material";
 import clsx from "clsx";
 import toast from "react-hot-toast";
+import Spinner from "../../ui/Spinner";
 
 const columns = [
   { field: "date", headerName: "Date", width: 220 },
@@ -113,7 +114,7 @@ export default function DataTable() {
     onError: (err) => toast.error(err.message),
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <Spinner />;
 
   return (
     <div style={{ height: 400, width: "100%" }} className="uppercase">

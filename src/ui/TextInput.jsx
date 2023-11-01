@@ -2,7 +2,14 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 
-export default function TextInput({ label, InputProps, defaultValue }) {
+export default function TextInput({
+  label,
+  InputProps,
+  defaultValue,
+  error,
+  helperText,
+  disabled,
+}) {
   return (
     <Box
       sx={{
@@ -13,14 +20,14 @@ export default function TextInput({ label, InputProps, defaultValue }) {
     >
       <TextField
         id="outlined-basic"
-        // value={value}
         label={label}
-        // onChange={handleChange}
         variant="outlined"
         InputProps={InputProps}
         defaultValue={defaultValue}
         fullWidth
-        multiline
+        error={error}
+        helperText={helperText}
+        disabled={disabled}
       />
     </Box>
   );
