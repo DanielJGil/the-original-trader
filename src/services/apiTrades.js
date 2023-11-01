@@ -1,4 +1,4 @@
-import supabase from "./supabase";
+import supabase, { supabaseUrl } from "./supabase";
 
 export async function getTrades() {
   // GET TRADES
@@ -13,10 +13,16 @@ export async function getTrades() {
 }
 
 export async function createTrade(newTrade) {
-  // https://tocnvuzfmuymgykvcodp.supabase.co/storage/v1/object/public/trade-images/GBPUSD_2023-11-01_13-30-50.png
+  const imageName = `${Math.random()}-${newTrade.image.name}`.replaceAll(
+    "/",
+    ""
+  );
+  const imagePath = `${supabaseUrl}/storage/v1/object/public/trade-images/${imageName}`;
 
   // CREATE TRADE
-  const { data, error } = await supabase.from("trades").insert([newTrade]);
+  const { data, error } = await supabase
+    .from("trades")
+    .insert([{ ...newTrade, image: imagePath }]);
 
   if (error) {
     console.error(error);
@@ -24,6 +30,18 @@ export async function createTrade(newTrade) {
   }
 
   // UPLOAD IMAGE
+  const { error: storageError } = await supabase.storage
+    .from("trade-images")
+    .upload(imageName, newTrade.image);
+
+  // DELETE TRADE IF THERE WAS AN ERROR UPLOADING IMAGE
+  if (storageError) {
+    await supabase.from("trades").delete().eq("id", data.id);
+    console.error(storageError);
+    throw new Error(
+      "Trade image could not be uploaded and the trade was not created"
+    );
+  }
 
   return data;
 }

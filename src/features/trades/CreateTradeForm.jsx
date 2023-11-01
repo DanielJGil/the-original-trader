@@ -13,6 +13,7 @@ import SelectInput from "../../ui/SelectInput";
 import TextInput from "../../ui/TextInput";
 import TextAreaInput from "../../ui/TextAreaInput";
 import { MuiFileInput } from "mui-file-input";
+import Spinner from "../../ui/Spinner";
 
 function CreateTradeForm() {
   const navigate = useNavigate();
@@ -36,18 +37,17 @@ function CreateTradeForm() {
   });
 
   function onSubmit(data) {
-    // mutate({ ...data, date: String(data.date.$d).slice(0, 24) });
-
-    console.log({
+    mutate({
       ...data,
       date: String(data.date.$d).slice(0, 24),
-      image: data.image[0],
     });
   }
 
   function onError(errors) {
     // console.log(errors);
   }
+
+  if (isCreating) return <Spinner />;
 
   return (
     <div className="px-4 py-6">
