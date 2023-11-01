@@ -11,6 +11,17 @@ export async function getTrades() {
   return trades;
 }
 
+export async function createTrade(newTrade) {
+  const { data, error } = await supabase.from("trades").insert([newTrade]);
+
+  if (error) {
+    console.error(error);
+    throw new Error("Trade could not be created");
+  }
+
+  return data;
+}
+
 export async function deleteTrade(id) {
   const { data, error } = await supabase.from("trades").delete().eq("id", id);
 

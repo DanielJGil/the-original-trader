@@ -22,8 +22,8 @@ const columns = [
       }
 
       return clsx("color", {
-        negative: params.value === "sell",
-        positive: params.value === "buy",
+        negative: params.value === "SELL",
+        positive: params.value === "BUY",
       });
     },
   },
@@ -133,10 +133,10 @@ export default function DataTable() {
         columns={columns}
         initialState={{
           pagination: {
-            paginationModel: { page: 0, pageSize: 5 },
+            paginationModel: { page: 0, pageSize: 10 },
           },
         }}
-        pageSizeOptions={[5, 10]}
+        pageSizeOptions={[10]}
         autoHeight
         onRowClick={(rows) => {
           handleOptionsModalOpen();

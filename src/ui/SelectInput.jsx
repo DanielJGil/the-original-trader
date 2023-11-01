@@ -2,7 +2,15 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 
-export default function SelectInput({ label, value, handleChange, children }) {
+export default function SelectInput({
+  label,
+  value,
+  handleChange,
+  children,
+  InputProps,
+  defaultValue,
+  id,
+}) {
   return (
     <Box
       sx={{
@@ -12,13 +20,15 @@ export default function SelectInput({ label, value, handleChange, children }) {
       autoComplete="off"
     >
       <TextField
-        id="outlined-basic"
-        value={value}
+        // onChange={handleChange}
+        id={id}
+        // value={value}
         label={label}
-        onChange={handleChange}
         variant="outlined"
         select
         fullWidth
+        InputProps={InputProps}
+        defaultValue={defaultValue}
       >
         {children}
       </TextField>

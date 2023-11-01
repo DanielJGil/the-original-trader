@@ -1,35 +1,53 @@
 import { Button, InputAdornment, MenuItem } from "@mui/material";
 import SelectInput from "../../ui/SelectInput";
-import { useState } from "react";
 import TextInput from "../../ui/TextInput";
-import DatePickerInput from "../../ui/DatePickerInput";
 import FileInput from "../../ui/FileInput";
-import CheckboxComponent from "../../ui/CheckboxComponent";
+import { Controller, useForm } from "react-hook-form";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { useNavigate } from "react-router-dom";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createTrade } from "../../services/apiTrades";
+import toast from "react-hot-toast";
 
 function CreateTradeForm() {
-  const [type, setType] = useState("");
-  const [pair, setPair] = useState("");
-  const [session, setSession] = useState("");
-  const [risk, setRisk] = useState("");
-  const [outcome, setOutcome] = useState("");
-  const [profit, setProfit] = useState("");
-  const [date, setDate] = useState(null);
-  const [tradeImage, setTradeImage] = useState(null);
-  const [analysis, setAnalysis] = useState("");
-  const [followedPlan, setFollowedPlan] = useState(false);
-  const [tradeErrors, setTradeErrors] = useState("");
+  const navigate = useNavigate();
+
+  const { register, handleSubmit, control, reset } = useForm();
+
+  const queryClient = useQueryClient();
+
+  const { mutate, isLoading: isCreating } = useMutation({
+    mutationFn: createTrade,
+    onSuccess: () => {
+      toast.success("New trade successfully added");
+      queryClient.invalidateQueries({
+        queryKey: ["trades"],
+      });
+      reset();
+      navigate("/trades");
+    },
+    onError: (err) => toast.error(err.message),
+  });
+
+  function onSubmit(data) {
+    mutate({ ...data, date: String(data.date.$d).slice(0, 24) });
+
+    // console.log({ ...data, date: String(data.date.$d).slice(0, 24) });
+  }
 
   return (
     <div className="px-4 py-6">
       <h2 className="mb-8 text-xl font-semibold">Add new trade</h2>
 
-      <form method="POST">
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-5 flex gap-6 flex-col sm:flex-row sm:justify-between">
           <SelectInput
             label="TYPE"
-            id="TYPE"
-            value={type}
-            handleChange={(e) => setType(e.target.value)}
+            id="type"
+            defaultValue=""
+            InputProps={{ ...register("type") }}
           >
             <MenuItem value="BUY">BUY</MenuItem>
             <MenuItem value="SELL">SELL</MenuItem>
@@ -37,14 +55,16 @@ function CreateTradeForm() {
 
           <TextInput
             label="PAIR"
-            value={pair}
-            handleChange={(e) => setPair(e.target.value)}
+            id="pair"
+            defaultValue=""
+            InputProps={{ ...register("pair") }}
           />
 
           <SelectInput
             label="SESSION"
-            value={session}
-            handleChange={(e) => setSession(e.target.value)}
+            id="session"
+            defaultValue=""
+            InputProps={{ ...register("session") }}
           >
             <MenuItem value="LONDON">LONDON</MenuItem>
             <MenuItem value="NEW YORK">NEW YORK</MenuItem>
@@ -56,19 +76,21 @@ function CreateTradeForm() {
         <div className="mb-5 flex gap-6 flex-col sm:flex-row sm:justify-between">
           <TextInput
             label="RISK"
-            value={risk}
-            handleChange={(e) => setRisk(e.target.value)}
+            id="risk"
+            defaultValue=""
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">%</InputAdornment>
               ),
+              ...register("risk"),
             }}
           />
 
           <SelectInput
             label="OUTCOME"
-            value={outcome}
-            handleChange={(e) => setOutcome(e.target.value)}
+            id="outcome"
+            defaultValue=""
+            InputProps={{ ...register("outcome") }}
           >
             <MenuItem value="WIN">WIN</MenuItem>
             <MenuItem value="LOSS">LOSS</MenuItem>
@@ -77,59 +99,74 @@ function CreateTradeForm() {
 
           <TextInput
             label="PROFIT"
-            value={profit}
-            handleChange={(e) => setProfit(e.target.value)}
+            id="profit"
+            defaultValue=""
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">$</InputAdornment>
               ),
+              ...register("profit"),
             }}
           />
         </div>
 
         <div className="mb-5 flex gap-6 flex-col sm:flex-row sm:justify-between">
-          <DatePickerInput
-            label="DATE"
-            value={date}
-            handleChange={(e) => setDate(e.target.value)}
+          <Controller
+            name="date"
+            control={control}
+            defaultValue={null}
+            render={({ field }) => (
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DemoContainer
+                  components={["DatePicker"]}
+                  sx={{ width: "100%", marginTop: "-8px" }}
+                >
+                  <DatePicker sx={{ width: "100%" }} label="DATE" {...field} />
+                </DemoContainer>
+              </LocalizationProvider>
+            )}
           />
 
-          <FileInput
+          {/* <FileInput
             file={tradeImage}
             handleChange={(newFile) => setTradeImage(newFile)}
             label="TRADE IMAGE"
-          />
+          /> */}
         </div>
 
         <div className="mb-5 flex gap-6 flex-col sm:flex-row sm:justify-between">
           <TextInput
             label="TRADE ANALYSIS"
-            value={analysis}
-            handleChange={(e) => setAnalysis(e.target.value)}
+            id="analysis"
+            defaultValue=""
+            InputProps={{ ...register("analysis") }}
           />
         </div>
 
         <div className="mb-5 flex gap-6 flex-col sm:flex-row sm:justify-between">
-          <CheckboxComponent
-            legend="DID YOU FOLLOW YOUR PLAN?"
-            checked={followedPlan}
-            label="YES"
-            handleChange={(e) => setFollowedPlan(e.target.checked)}
+          <TextInput
+            label="ERRORS MADE"
+            id="tradeErrors"
+            InputProps={{ ...register("tradeErrors") }}
           />
         </div>
 
-        {!followedPlan && (
-          <div className="mb-5 flex gap-6 flex-col sm:flex-row sm:justify-between">
-            <TextInput
-              label="ERRORS MADE"
-              value={tradeErrors}
-              handleChange={(e) => setTradeErrors(e.target.value)}
-            />
-          </div>
-        )}
+        <div className="flex justify-end gap-4">
+          <Button
+            variant="outlined"
+            size="large"
+            onClick={() => navigate("/trades")}
+            disabled={isCreating}
+          >
+            Cancel
+          </Button>
 
-        <div className="flex justify-end">
-          <Button variant="contained" size="large">
+          <Button
+            variant="contained"
+            size="large"
+            type="submit"
+            disabled={isCreating}
+          >
             Add trade
           </Button>
         </div>
