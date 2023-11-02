@@ -8,7 +8,7 @@ function Trades() {
   return (
     <>
       <div className="flex justify-between mb-5">
-        <h1 className="font-semibold text-xl">Trades</h1>
+        <h1 className="font-semibold text-2xl">Trades</h1>
         <Button
           size="small"
           variant="contained"

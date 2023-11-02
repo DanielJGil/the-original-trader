@@ -12,6 +12,21 @@ export async function getTrades() {
   return trades;
 }
 
+export async function getTrade(id) {
+  const { data: trade, error } = await supabase
+    .from("trades")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    console.error(error);
+    throw new Error("Trade could not be loaded");
+  }
+
+  return trade;
+}
+
 export async function createTrade(newTrade) {
   const imageName = `${Math.random()}-${newTrade.image.name}`.replaceAll(
     "/",

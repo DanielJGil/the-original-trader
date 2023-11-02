@@ -26,7 +26,7 @@ function CreateTradeForm() {
     createTrade(
       {
         ...data,
-        date: String(data.date.$d).slice(0, 24),
+        date: String(data.date.$d).slice(0, 15),
       },
       {
         onSuccess: () => reset(),
@@ -186,12 +186,13 @@ function CreateTradeForm() {
           <Controller
             name="image"
             control={control}
+            rules={{ required: "This field is required" }}
             render={({ field, fieldState }) => (
               <MuiFileInput
                 {...field}
                 sx={{ width: "100%" }}
                 label="TRADE IMAGE"
-                helperText={fieldState.invalid ? "File is invalid" : ""}
+                helperText={fieldState.invalid ? "Please add an image" : ""}
                 error={fieldState.invalid}
               />
             )}

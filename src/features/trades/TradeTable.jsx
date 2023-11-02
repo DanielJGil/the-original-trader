@@ -3,15 +3,18 @@ import { useState } from "react";
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import BasicModal from "../../ui/BasicModal";
-import { Button, Typography } from "@mui/material";
+import { Button, Paper, Typography } from "@mui/material";
 import clsx from "clsx";
 import Spinner from "../../ui/Spinner";
 
 import { useTrades } from "./useTrades";
 import { useDeleteTrade } from "./useDeleteTrade";
+import dayjs from "dayjs";
+import { useNavigate } from "react-router-dom";
+import { ErrorOutline } from "@mui/icons-material";
 
 const columns = [
-  { field: "date", headerName: "Date", width: 220 },
+  { field: "date", headerName: "Date", width: 200 },
   {
     field: "type",
     headerName: "Type",
@@ -28,7 +31,7 @@ const columns = [
     },
   },
   { field: "pair", headerName: "Pair", width: 180 },
-  { field: "session", headerName: "Session", width: 220 },
+  { field: "session", headerName: "Session", width: 240 },
   {
     field: "outcome",
     headerName: "Outcome",
@@ -80,6 +83,8 @@ const deleteModalStyle = {
 };
 
 export default function DataTable() {
+  const navigate = useNavigate();
+
   const [selectedRowId, setSelectedRowId] = useState("");
 
   const [optionsModalOpen, setOptionsModalOpen] = useState(false);
@@ -93,7 +98,22 @@ export default function DataTable() {
   const { trades, isLoading } = useTrades();
   const { deleteTrade, isDeleting } = useDeleteTrade();
 
+  const tradeWithFormattedDate = trades?.map((trade) => ({
+    ...trade,
+    date: dayjs(trade.date).format("d MMM YYYY"),
+  }));
+
   if (isLoading) return <Spinner />;
+
+  if (!tradeWithFormattedDate.length)
+    return (
+      <div className="flex justify-center mt-20 font-semibold">
+        <Paper elevation={4} sx={{ padding: 3 }}>
+          <ErrorOutline /> You do not have any trades yet. Please start by
+          adding a new one.
+        </Paper>
+      </div>
+    );
 
   return (
     <div style={{ height: 400, width: "100%" }} className="uppercase">
@@ -109,7 +129,7 @@ export default function DataTable() {
             color: "#16a34a",
           },
         }}
-        rows={trades}
+        rows={tradeWithFormattedDate}
         columns={columns}
         initialState={{
           pagination: {
@@ -131,7 +151,12 @@ export default function DataTable() {
           style={optionsModalStyle}
         >
           <div className="flex justify-evenly">
-            <Button variant="outlined">View</Button>
+            <Button
+              variant="outlined"
+              onClick={() => navigate(`/trades/${selectedRowId}`)}
+            >
+              View
+            </Button>
             <Button
               color="error"
               variant="outlined"

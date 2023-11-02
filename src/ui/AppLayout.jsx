@@ -49,7 +49,7 @@ function AppLayout(props) {
             to="/dashboard"
           >
             <HiOutlineHome size={25} style={{ marginLeft: "1rem" }} />
-            <span>Dashboard</span>
+            <span className=" font-semibold">Dashboard</span>
           </ListItemButton>
         </ListItem>
 
@@ -61,7 +61,7 @@ function AppLayout(props) {
             to="/trades"
           >
             <BsGraphUpArrow size={21} style={{ marginLeft: "1rem" }} />
-            <span>Trades</span>
+            <span className=" font-semibold">Trades</span>
           </ListItemButton>
         </ListItem>
 
@@ -73,7 +73,7 @@ function AppLayout(props) {
             to="/settings"
           >
             <HiOutlineCog6Tooth size={25} style={{ marginLeft: "1rem" }} />
-            <span>Settings</span>
+            <span className=" font-semibold">Settings</span>
           </ListItemButton>
         </ListItem>
       </List>

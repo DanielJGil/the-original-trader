@@ -4,11 +4,12 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import AppLayout from "./ui/AppLayout";
 import Dashboard from "./pages/Dashboard";
 import Trades from "./pages/Trades";
+import Trade from "./pages/Trade";
 import NewTrade from "./pages/NewTrade";
 import Settings from "./pages/Settings";
 
 import { createTheme } from "@mui/material";
-import { indigo } from "@mui/material/colors";
+import { blueGrey, indigo } from "@mui/material/colors";
 import { ThemeProvider } from "@emotion/react";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
@@ -17,6 +18,9 @@ const theme = createTheme({
   palette: {
     primary: {
       main: indigo[500],
+    },
+    text: {
+      primary: blueGrey[800],
     },
   },
 
@@ -53,6 +57,7 @@ function App() {
             <Route index element={<Navigate replace to="dashboard" />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="trades" element={<Trades />} />
+            <Route path="trades/:tradeId" element={<Trade />} />
             <Route path="trades/new" element={<NewTrade />} />
             <Route path="settings" element={<Settings />} />
           </Route>
