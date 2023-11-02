@@ -1,6 +1,3 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { deleteTrade, getTrades } from "../../services/apiTrades";
-
 import { useState } from "react";
 
 import * as React from "react";
@@ -8,8 +5,10 @@ import { DataGrid } from "@mui/x-data-grid";
 import BasicModal from "../../ui/BasicModal";
 import { Button, Typography } from "@mui/material";
 import clsx from "clsx";
-import toast from "react-hot-toast";
 import Spinner from "../../ui/Spinner";
+
+import { useTrades } from "./useTrades";
+import { useDeleteTrade } from "./useDeleteTrade";
 
 const columns = [
   { field: "date", headerName: "Date", width: 220 },
@@ -91,28 +90,8 @@ export default function DataTable() {
   const handleDeleteModalOpen = () => setDeleteModalOpen(true);
   const handleDeleteModalClose = () => setDeleteModalOpen(false);
 
-  const queryClient = useQueryClient();
-
-  const {
-    data: trades,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["trades"],
-    queryFn: getTrades,
-  });
-
-  const { mutate } = useMutation({
-    mutationFn: deleteTrade,
-    onSuccess: () => {
-      toast.success("Trade successfully deleted");
-
-      queryClient.invalidateQueries({
-        queryKey: ["trades"],
-      });
-    },
-    onError: (err) => toast.error(err.message),
-  });
+  const { trades, isLoading } = useTrades();
+  const { deleteTrade, isDeleting } = useDeleteTrade();
 
   if (isLoading) return <Spinner />;
 
@@ -185,7 +164,7 @@ export default function DataTable() {
               color="error"
               variant="contained"
               onClick={() => {
-                mutate(selectedRowId);
+                deleteTrade(selectedRowId);
                 handleOptionsModalClose();
                 handleDeleteModalClose();
               }}

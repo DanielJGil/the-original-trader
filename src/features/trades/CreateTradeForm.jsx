@@ -4,10 +4,6 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 
 import { Controller, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createTrade } from "../../services/apiTrades";
-import toast from "react-hot-toast";
 
 import SelectInput from "../../ui/SelectInput";
 import TextInput from "../../ui/TextInput";
@@ -15,39 +11,34 @@ import TextAreaInput from "../../ui/TextAreaInput";
 import { MuiFileInput } from "mui-file-input";
 import Spinner from "../../ui/Spinner";
 
+import { useCreateTrade } from "./useCreateTrade";
+import { useNavigate } from "react-router-dom";
+
 function CreateTradeForm() {
   const navigate = useNavigate();
 
   const { register, handleSubmit, control, reset, formState } = useForm();
   const { errors } = formState;
 
-  const queryClient = useQueryClient();
-
-  const { mutate, isLoading: isCreating } = useMutation({
-    mutationFn: createTrade,
-    onSuccess: () => {
-      toast.success("New trade successfully added");
-      queryClient.invalidateQueries({
-        queryKey: ["trades"],
-      });
-      reset();
-      navigate("/trades");
-    },
-    onError: (err) => toast.error(err.message),
-  });
+  const { createTrade, isCreating } = useCreateTrade();
 
   function onSubmit(data) {
-    mutate({
-      ...data,
-      date: String(data.date.$d).slice(0, 24),
-    });
+    createTrade(
+      {
+        ...data,
+        date: String(data.date.$d).slice(0, 24),
+      },
+      {
+        onSuccess: () => reset(),
+      }
+    );
   }
 
   function onError(errors) {
-    // console.log(errors);
+    console.log(errors);
   }
 
-  if (isCreating) return <Spinner />;
+  // if (isCreating) return <Spinner />;
 
   return (
     <div className="px-4 py-6">
@@ -167,7 +158,7 @@ function CreateTradeForm() {
           <Controller
             name="date"
             control={control}
-            rules={{ required: true }}
+            rules={{ required: "This field is required" }}
             defaultValue={null}
             render={({ field }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
