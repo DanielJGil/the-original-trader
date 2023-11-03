@@ -15,6 +15,7 @@ import { BsGraphUpArrow } from "react-icons/bs";
 
 import { Outlet, NavLink } from "react-router-dom";
 import styled from "@emotion/styled";
+import Logout from "../features/authentication/Logout";
 
 const RouterLink = styled(NavLink)(({ theme }) => ({
   color: "black",
@@ -97,7 +98,12 @@ function AppLayout(props) {
           backgroundColor: "#fff",
         }}
       >
-        <Toolbar>
+        <Toolbar
+          sx={{
+            display: "flex",
+            justifyContent: { xs: "space-between", md: "flex-end" },
+          }}
+        >
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -115,6 +121,8 @@ function AppLayout(props) {
           >
             <MenuIcon />
           </IconButton>
+
+          <Logout />
         </Toolbar>
       </AppBar>
 

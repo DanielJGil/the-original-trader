@@ -13,6 +13,8 @@ import { blueGrey, indigo } from "@mui/material/colors";
 import { ThemeProvider } from "@emotion/react";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
+import Login from "./pages/Login";
+import ProtectedRoute from "./ui/ProtectedRoute";
 
 const theme = createTheme({
   palette: {
@@ -27,11 +29,11 @@ const theme = createTheme({
   typography: { fontFamily: ["Poppins", "sans-serif"].join(",") },
 });
 
-const darkTheme = createTheme({
-  palette: {
-    mode: "dark",
-  },
-});
+// const darkTheme = createTheme({
+//   palette: {
+//     mode: "dark",
+//   },
+// });
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -49,9 +51,11 @@ function App() {
         <Routes>
           <Route
             element={
-              <ThemeProvider theme={theme}>
-                <AppLayout />
-              </ThemeProvider>
+              <ProtectedRoute>
+                <ThemeProvider theme={theme}>
+                  <AppLayout />
+                </ThemeProvider>
+              </ProtectedRoute>
             }
           >
             <Route index element={<Navigate replace to="dashboard" />} />
@@ -61,6 +65,15 @@ function App() {
             <Route path="trades/new" element={<NewTrade />} />
             <Route path="settings" element={<Settings />} />
           </Route>
+
+          <Route
+            path="login"
+            element={
+              <ThemeProvider theme={theme}>
+                <Login />
+              </ThemeProvider>
+            }
+          />
         </Routes>
       </BrowserRouter>
 

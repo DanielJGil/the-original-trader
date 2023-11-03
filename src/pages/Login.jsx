@@ -1,5 +1,11 @@
+import LoginForm from "../features/authentication/LoginForm";
+
 function Login() {
-  return <div>Login</div>;
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <LoginForm />
+    </div>
+  );
 }
 
 export default Login;
