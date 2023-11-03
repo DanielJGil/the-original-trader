@@ -13,6 +13,7 @@ import Spinner from "../../ui/Spinner";
 
 import { useCreateTrade } from "./useCreateTrade";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 function CreateTradeForm() {
   const navigate = useNavigate();
@@ -20,25 +21,37 @@ function CreateTradeForm() {
   const { register, handleSubmit, control, reset, formState } = useForm();
   const { errors } = formState;
 
+  const [isUploading, setIsUploading] = useState(false);
+
   const { createTrade, isCreating } = useCreateTrade();
 
   function onSubmit(data) {
+    setIsUploading(true);
+
     createTrade(
       {
         ...data,
         date: String(data.date.$d).slice(0, 15),
       },
       {
-        onSuccess: () => reset(),
+        onSuccess: () => {
+          reset();
+          setIsUploading(false);
+        },
+
+        onError: () => {
+          reset();
+          setIsUploading(false);
+        },
       }
     );
   }
 
   function onError(errors) {
-    console.log(errors);
+    // console.log(errors);
   }
 
-  // if (isCreating) return <Spinner />;
+  if (isUploading) return <Spinner />;
 
   return (
     <div className="px-4 py-6">
@@ -197,12 +210,6 @@ function CreateTradeForm() {
               />
             )}
           />
-
-          {/* <FileInput
-            file={tradeImage}
-            handleChange={(newFile) => setTradeImage(newFile)}
-            label="TRADE IMAGE"
-          /> */}
         </div>
 
         <div className="mb-5 flex gap-6 flex-col sm:flex-row sm:justify-between">

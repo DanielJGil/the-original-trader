@@ -100,7 +100,7 @@ export default function DataTable() {
 
   const tradeWithFormattedDate = trades?.map((trade) => ({
     ...trade,
-    date: dayjs(trade.date).format("d MMM YYYY"),
+    date: dayjs(trade.date).format("D MMM YYYY"),
   }));
 
   if (isLoading) return <Spinner />;

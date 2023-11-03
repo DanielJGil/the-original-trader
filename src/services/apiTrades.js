@@ -61,6 +61,21 @@ export async function createTrade(newTrade) {
   return data;
 }
 
+export async function updateTrade(newField) {
+  const { data, error } = await supabase
+    .from("trades")
+    .update(newField)
+    .eq("id", 1)
+    .single();
+
+  if (error) {
+    console.error(error);
+    throw new Error("Trade could not be updated");
+  }
+
+  return data;
+}
+
 export async function deleteTrade(id) {
   // DELETE TRADE
   const { data, error } = await supabase.from("trades").delete().eq("id", id);

@@ -10,7 +10,7 @@ export function useTrade() {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["trade"],
+    queryKey: ["trade", tradeId],
     queryFn: () => getTrade(tradeId),
     retry: false,
   });
