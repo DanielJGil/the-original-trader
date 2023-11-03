@@ -15,6 +15,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 import Login from "./pages/Login";
 import ProtectedRoute from "./ui/ProtectedRoute";
+import Signup from "./pages/Signup";
 
 const theme = createTheme({
   palette: {
@@ -71,6 +72,15 @@ function App() {
             element={
               <ThemeProvider theme={theme}>
                 <Login />
+              </ThemeProvider>
+            }
+          />
+
+          <Route
+            path="signup"
+            element={
+              <ThemeProvider theme={theme}>
+                <Signup />
               </ThemeProvider>
             }
           />

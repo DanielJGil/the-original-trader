@@ -1,10 +1,13 @@
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { useLogin } from "./useLogin";
+import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
-  const [email, setEmail] = useState("guest@example.com");
-  const [password, setPassword] = useState("guestguest");
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   const { login } = useLogin();
@@ -19,24 +22,25 @@ function LoginForm() {
     login(
       { email, password },
       {
-        onSuccess: () => {
+        onSettled: () => {
           setIsLoggingIn(false);
-        },
-
-        onError: () => {
-          setIsLoggingIn(false);
+          setEmail("");
+          setPassword("");
         },
       }
     );
   }
 
   return (
-    <div className="flex flex-col gap-6 font-semibold text-2xl">
+    <div className="flex flex-col gap-6">
       <div className="flex justify-center">
-        <h2>Log in to your account</h2>
+        <h2 className="font-semibold text-2xl">Log in to your account</h2>
       </div>
 
-      <form className="flex flex-col gap-6 w-[20rem]" onSubmit={handleSubmit}>
+      <form
+        className="flex flex-col gap-6 w-[20rem] mb-6"
+        onSubmit={handleSubmit}
+      >
         <TextField
           label="EMAIL ADDRESS"
           id="email"
@@ -60,6 +64,13 @@ function LoginForm() {
           {isLoggingIn ? "Logging in..." : "Login"}
         </Button>
       </form>
+
+      <div className="flex flex-col justify-center items-center gap-2">
+        <p>Don't have an account?</p>
+        <Button variant="outlined" onClick={() => navigate("/signup")}>
+          Create account
+        </Button>
+      </div>
     </div>
   );
 }

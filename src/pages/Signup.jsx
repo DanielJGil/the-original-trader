@@ -1,5 +1,11 @@
+import SignupForm from "../features/authentication/SignupForm";
+
 function Signup() {
-  return <div>Sign up</div>;
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <SignupForm />
+    </div>
+  );
 }
 
 export default Signup;
