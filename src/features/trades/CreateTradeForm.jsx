@@ -14,9 +14,12 @@ import Spinner from "../../ui/Spinner";
 import { useCreateTrade } from "./useCreateTrade";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useUser } from "../authentication/useUser";
 
 function CreateTradeForm() {
   const navigate = useNavigate();
+
+  const { user } = useUser();
 
   const { register, handleSubmit, control, reset, formState } = useForm();
   const { errors } = formState;
@@ -229,6 +232,15 @@ function CreateTradeForm() {
             defaultValue=""
             disabled={isCreating}
             InputProps={{ ...register("tradeErrors") }}
+          />
+        </div>
+
+        <div className="hidden">
+          <TextAreaInput
+            label="USER ID"
+            id="userId"
+            defaultValue={user.id}
+            InputProps={{ ...register("userId") }}
           />
         </div>
 

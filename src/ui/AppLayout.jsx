@@ -10,7 +10,11 @@ import ListItemButton from "@mui/material/ListItemButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 
-import { HiOutlineCog6Tooth, HiOutlineHome } from "react-icons/hi2";
+import {
+  HiMiniUsers,
+  HiOutlineCog6Tooth,
+  HiOutlineHome,
+} from "react-icons/hi2";
 import { BsGraphUpArrow } from "react-icons/bs";
 
 import { Outlet, NavLink } from "react-router-dom";
@@ -38,7 +42,7 @@ function AppLayout(props) {
   const drawer = (
     <div>
       <List>
-        <ListItem key={"Home"}>
+        <ListItem key={"Dashboard"}>
           <ListItemButton
             className="flex gap-3 items-center justify-center"
             sx={{
@@ -63,6 +67,22 @@ function AppLayout(props) {
           >
             <BsGraphUpArrow size={21} style={{ marginLeft: "1rem" }} />
             <span className=" font-semibold">Trades</span>
+          </ListItemButton>
+        </ListItem>
+
+        <ListItem key={"Account"}>
+          <ListItemButton
+            className="flex gap-3 items-center justify-center"
+            sx={{
+              borderRadius: "10px",
+              padding: "1rem",
+              display: "flex",
+            }}
+            component={RouterLink}
+            to="/account"
+          >
+            <HiMiniUsers size={24} style={{ marginLeft: "1rem" }} />
+            <span className=" font-semibold">Account</span>
           </ListItemButton>
         </ListItem>
 

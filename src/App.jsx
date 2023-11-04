@@ -6,6 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import Trades from "./pages/Trades";
 import Trade from "./pages/Trade";
 import NewTrade from "./pages/NewTrade";
+import Account from "./pages/Account";
 import Settings from "./pages/Settings";
 
 import { createTheme } from "@mui/material";
@@ -64,6 +65,7 @@ function App() {
             <Route path="trades" element={<Trades />} />
             <Route path="trades/:tradeId" element={<Trade />} />
             <Route path="trades/new" element={<NewTrade />} />
+            <Route path="account" element={<Account />} />
             <Route path="settings" element={<Settings />} />
           </Route>
 

@@ -12,6 +12,7 @@ import { useDeleteTrade } from "./useDeleteTrade";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
 import { ErrorOutline } from "@mui/icons-material";
+import { useUser } from "../authentication/useUser";
 
 const columns = [
   { field: "date", headerName: "Date", width: 200 },
@@ -97,20 +98,27 @@ export default function DataTable() {
 
   const { trades, isLoading } = useTrades();
   const { deleteTrade, isDeleting } = useDeleteTrade();
+  const { user } = useUser();
 
-  const tradeWithFormattedDate = trades?.map((trade) => ({
+  const tradesWithFormattedDate = trades?.map((trade) => ({
     ...trade,
     date: dayjs(trade.date).format("D MMM YYYY"),
   }));
 
+  const userTrades = tradesWithFormattedDate?.filter(
+    (trade) => trade.userId === user.id
+  );
+
   if (isLoading) return <Spinner />;
 
-  if (!tradeWithFormattedDate.length)
+  if (!userTrades.length)
     return (
       <div className="flex justify-center mt-20 font-semibold">
         <Paper elevation={4} sx={{ padding: 3 }}>
-          <ErrorOutline /> You do not have any trades yet. Please start by
-          adding a new one.
+          <ErrorOutline />
+          <span>
+            You do not have any trades yet. Please start by adding a new one.
+          </span>
         </Paper>
       </div>
     );
@@ -129,7 +137,7 @@ export default function DataTable() {
             color: "#16a34a",
           },
         }}
-        rows={tradeWithFormattedDate}
+        rows={userTrades}
         columns={columns}
         initialState={{
           pagination: {
