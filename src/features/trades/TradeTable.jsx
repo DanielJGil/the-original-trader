@@ -97,7 +97,7 @@ export default function DataTable() {
   const handleDeleteModalClose = () => setDeleteModalOpen(false);
 
   const { trades, isLoading } = useTrades();
-  const { deleteTrade, isDeleting } = useDeleteTrade();
+  const { deleteTrade } = useDeleteTrade();
   const { user } = useUser();
 
   const tradesWithFormattedDate = trades?.map((trade) => ({
