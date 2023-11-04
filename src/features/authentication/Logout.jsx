@@ -10,8 +10,13 @@ function Logout() {
 
   return (
     <Button
-      variant="outlined"
-      sx={{ fontSize: "1.2rem" }}
+      style={{
+        maxWidth: "50px",
+        maxHeight: "30px",
+        minWidth: "30px",
+        minHeight: "30px",
+        fontSize: "1.3rem",
+      }}
       disabled={isLoggingOut}
       onClick={() => {
         setIsLoggingOut(true);

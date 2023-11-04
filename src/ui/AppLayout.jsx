@@ -14,12 +14,15 @@ import {
   HiMiniUsers,
   HiOutlineCog6Tooth,
   HiOutlineHome,
+  HiOutlineUser,
 } from "react-icons/hi2";
 import { BsGraphUpArrow } from "react-icons/bs";
 
-import { Outlet, NavLink } from "react-router-dom";
+import { Outlet, NavLink, useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import Logout from "../features/authentication/Logout";
+import { Button } from "@mui/material";
+import UserAvatar from "../features/authentication/UserAvatar";
 
 const RouterLink = styled(NavLink)(({ theme }) => ({
   color: "black",
@@ -32,6 +35,8 @@ const RouterLink = styled(NavLink)(({ theme }) => ({
 const drawerWidth = 260;
 
 function AppLayout(props) {
+  const navigate = useNavigate();
+
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -67,22 +72,6 @@ function AppLayout(props) {
           >
             <BsGraphUpArrow size={21} style={{ marginLeft: "1rem" }} />
             <span className=" font-semibold">Trades</span>
-          </ListItemButton>
-        </ListItem>
-
-        <ListItem key={"Account"}>
-          <ListItemButton
-            className="flex gap-3 items-center justify-center"
-            sx={{
-              borderRadius: "10px",
-              padding: "1rem",
-              display: "flex",
-            }}
-            component={RouterLink}
-            to="/account"
-          >
-            <HiMiniUsers size={24} style={{ marginLeft: "1rem" }} />
-            <span className=" font-semibold">Account</span>
           </ListItemButton>
         </ListItem>
 
@@ -142,7 +131,24 @@ function AppLayout(props) {
             <MenuIcon />
           </IconButton>
 
-          <Logout />
+          <div className="flex gap-6 items-center justify-center">
+            <UserAvatar />
+            <div className="flex gap-1 items-center justify-center">
+              <Button
+                onClick={() => navigate("/account")}
+                style={{
+                  maxWidth: "50px",
+                  maxHeight: "30px",
+                  minWidth: "30px",
+                  minHeight: "30px",
+                  fontSize: "1.3rem",
+                }}
+              >
+                <HiOutlineUser />
+              </Button>
+              <Logout />
+            </div>
+          </div>
         </Toolbar>
       </AppBar>
 
