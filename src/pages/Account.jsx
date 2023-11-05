@@ -1,3 +1,4 @@
+import UpdatePasswordForm from "../features/authentication/UpdatePasswordForm";
 import UpdateUserDataForm from "../features/authentication/UpdateUserDataForm";
 
 function Account() {
@@ -14,7 +15,7 @@ function Account() {
         </div>
         <div>
           <h2 className="text-xl mb-3">Update password</h2>
-          {/* <UpdateUserDataForm /> */}
+          <UpdatePasswordForm />
         </div>
       </div>
     </div>

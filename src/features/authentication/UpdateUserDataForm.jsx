@@ -46,51 +46,49 @@ function UpdateUserDataForm() {
   }
 
   return (
-    <div>
-      <form className="space-y-6" onSubmit={handleSubmit}>
-        <div className="flex flex-col gap-5">
-          <TextField
-            label="EMAIL ADDRESS"
-            size="small"
-            value={email}
-            disabled
-            fullWidth
-            sx={{ maxWidth: "25rem" }}
-          />
-          <TextField
-            label="FULL NAME"
-            size="small"
-            value={fullName}
-            disabled={isUpdating}
-            onChange={(e) => setFullName(e.target.value)}
-            fullWidth
-            sx={{ maxWidth: "25rem" }}
-          />
-          <MuiFileInput
-            label="USER IMAGE"
-            size="small"
-            sx={{ maxWidth: "25rem" }}
-            value={avatar}
-            disabled={isUpdating}
-            onChange={handleAvatar}
-          />
+    <form className="space-y-6" onSubmit={handleSubmit}>
+      <div className="flex flex-col gap-5">
+        <TextField
+          label="EMAIL ADDRESS"
+          size="small"
+          value={email}
+          disabled
+          fullWidth
+          sx={{ maxWidth: "25rem" }}
+        />
+        <TextField
+          label="FULL NAME"
+          size="small"
+          value={fullName}
+          disabled={isUpdating}
+          onChange={(e) => setFullName(e.target.value)}
+          fullWidth
+          sx={{ maxWidth: "25rem" }}
+        />
+        <MuiFileInput
+          label="USER IMAGE"
+          size="small"
+          sx={{ maxWidth: "25rem" }}
+          value={avatar}
+          disabled={isUpdating}
+          onChange={handleAvatar}
+        />
 
-          <div className="flex justify-end gap-3 max-w-sm">
-            <Button
-              variant="outlined"
-              disabled={isUpdating}
-              onClick={handleCancel}
-            >
-              Cancel
-            </Button>
+        <div className="flex justify-end gap-3 max-w-sm">
+          <Button
+            variant="outlined"
+            disabled={isUpdating}
+            onClick={handleCancel}
+          >
+            Cancel
+          </Button>
 
-            <Button variant="contained" type="submit" disabled={isUpdating}>
-              Update account
-            </Button>
-          </div>
+          <Button variant="contained" type="submit" disabled={isUpdating}>
+            Update account
+          </Button>
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   );
 }
 
