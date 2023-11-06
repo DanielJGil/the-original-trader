@@ -1,3 +1,4 @@
+import { getToday } from "../utils/helpers";
 import supabase, { supabaseUrl } from "./supabase";
 
 export async function getTrades() {
@@ -83,6 +84,21 @@ export async function deleteTrade(id) {
   if (error) {
     console.error(error);
     throw new Error("Trade could not be deleted");
+  }
+
+  return data;
+}
+
+export async function getTradesAfterDate(date) {
+  const { data, error } = await supabase
+    .from("trades")
+    .select("*")
+    .gte("date", date)
+    .lte("date", getToday({ end: true }));
+
+  if (error) {
+    console.error(error);
+    throw new Error("Trades could not be loaded");
   }
 
   return data;
