@@ -32,7 +32,7 @@ function Stats({ userTrades, numTrades }) {
     numWinningTrades && numTrades ? (numWinningTrades / numTrades) * 100 : 0;
 
   return (
-    <div className="flex gap-6 flex-wrap justify-center">
+    <div className="flex gap-6 flex-wrap justify-between">
       <Stat
         title="Profit"
         textColor="text-blue-800"

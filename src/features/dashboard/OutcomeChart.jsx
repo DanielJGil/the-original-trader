@@ -30,7 +30,7 @@ function OutcomeChart({ userTrades }) {
     {
       outcome: "BREAK EVEN",
       value: breakEven,
-      color: "#b0b0b0",
+      color: "#b348ff",
     },
   ];
 

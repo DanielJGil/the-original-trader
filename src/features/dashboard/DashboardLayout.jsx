@@ -4,6 +4,7 @@ import { useTrades } from "../trades/useTrades";
 import ProfitChart from "./AccountGrowthChart";
 import OutcomeChart from "./OutcomeChart";
 import Stats from "./Stats";
+import TodayActivityTable from "./TodayActivityTable";
 
 function DashboardLayout() {
   const { trades, isLoading } = useTrades();
@@ -23,9 +24,7 @@ function DashboardLayout() {
 
       <div>
         <div className="flex flex-col md:flex-row justify-around gap-6">
-          <div className="p-4 h-[20rem] w-full border rounded-md">
-            Today's Trades
-          </div>
+          <TodayActivityTable />
           <OutcomeChart userTrades={userTrades} />
         </div>
         <ProfitChart userTrades={userTrades} />

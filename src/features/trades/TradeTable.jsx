@@ -97,12 +97,12 @@ export default function DataTable() {
   const handleDeleteModalClose = () => setDeleteModalOpen(false);
 
   const { trades, isLoading } = useTrades();
-  const { deleteTrade } = useDeleteTrade();
   const { user } = useUser();
+  const { deleteTrade } = useDeleteTrade();
 
   const tradesWithFormattedDate = trades?.map((trade) => ({
     ...trade,
-    date: dayjs(trade.date).format("D MMM YYYY"),
+    date: dayjs(trade.date).format("MM/D/YYYY"),
   }));
 
   const userTrades = tradesWithFormattedDate?.filter(
