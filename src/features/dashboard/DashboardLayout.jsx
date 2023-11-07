@@ -1,7 +1,8 @@
 import Spinner from "../../ui/Spinner";
 import { useUser } from "../authentication/useUser";
 import { useTrades } from "../trades/useTrades";
-import ProfitChart from "./ProfitChart";
+import ProfitChart from "./AccountGrowthChart";
+import OutcomeChart from "./OutcomeChart";
 import Stats from "./Stats";
 
 function DashboardLayout() {
@@ -21,9 +22,11 @@ function DashboardLayout() {
       </div>
 
       <div>
-        <div className="flex justify-around">
-          <div>Today's Trades</div>
-          <div>Chart</div>
+        <div className="flex flex-col md:flex-row justify-around gap-6">
+          <div className="p-4 h-[20rem] w-full border rounded-md">
+            Today's Trades
+          </div>
+          <OutcomeChart userTrades={userTrades} />
         </div>
         <ProfitChart userTrades={userTrades} />
       </div>

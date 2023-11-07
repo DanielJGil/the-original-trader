@@ -58,8 +58,11 @@ function ProfitChart({ userTrades }) {
   });
 
   return (
-    <div className="border mt-5 p-4">
-      <h2 className="mb-3 font-semibold">Equity growth</h2>
+    <div className="border mt-5 p-4 rounded-md">
+      <h2 className="mb-3 font-semibold">
+        Account growth from {startDate.format("D MMM YYYY")} &mdash;{" "}
+        {endDate.format("D MMM YYYY")}
+      </h2>
 
       <ResponsiveContainer height={400} width="100%">
         <AreaChart data={data}>
