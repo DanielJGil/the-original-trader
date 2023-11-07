@@ -1,11 +1,11 @@
 import Spinner from "../../ui/Spinner";
 import { useUser } from "../authentication/useUser";
+import { useTrades } from "../trades/useTrades";
 import ProfitChart from "./ProfitChart";
 import Stats from "./Stats";
-import { useRecentTrades } from "./useRecentTrades";
 
 function DashboardLayout() {
-  const { trades, isLoading } = useRecentTrades();
+  const { trades, isLoading } = useTrades();
   const { user } = useUser();
 
   const userTrades = trades?.filter((trade) => trade.userId === user.id);
@@ -21,9 +21,11 @@ function DashboardLayout() {
       </div>
 
       <div>
-        <div>Today's Trades</div>
-        <div>Chart</div>
-        <ProfitChart userTrades={userTrades} numTrades={numTrades} />
+        <div className="flex justify-around">
+          <div>Today's Trades</div>
+          <div>Chart</div>
+        </div>
+        <ProfitChart userTrades={userTrades} />
       </div>
     </div>
   );

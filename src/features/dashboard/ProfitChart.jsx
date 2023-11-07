@@ -1,6 +1,5 @@
 import { format, isSameDay, subDays } from "date-fns";
 import { eachDayOfInterval } from "date-fns/esm";
-import { useSearchParams } from "react-router-dom";
 import {
   Area,
   AreaChart,
@@ -10,12 +9,11 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { useSettings } from "../settings/useSettings";
-import Spinner from "../../ui/Spinner";
+
+import dayjs from "dayjs";
 
 const colors = {
-  totalSales: { stroke: "#4f46e5", fill: "#c7d2fe" },
-  extrasSales: { stroke: "#16a34a", fill: "#dcfce7" },
+  profit: { stroke: "#4f46e5", fill: "#c7d2fe" },
   text: "#374151",
   background: "#fff",
 };
@@ -32,60 +30,57 @@ const colors = {
 //     background: "#fff",
 //   };
 
-function ProfitChart({ userTrades, numTrades }) {
-  const [searchParams] = useSearchParams();
+function ProfitChart({ userTrades }) {
+  const dates = userTrades.map((trade) => dayjs(trade.date));
 
-  const { settings, isLoading } = useSettings();
-  if (isLoading) return <Spinner />;
-  const { accountSize } = settings;
+  let startDate = dates[0];
+  for (let i = 0; i < dates.length; i++) {
+    if (dates[i] < startDate) startDate = dates[i];
+  }
 
-  const numDays = !searchParams.get("last")
-    ? 7
-    : Number(searchParams.get("last"));
+  const endDate = dayjs(new Date());
+  const numDays = endDate.diff(startDate, "day");
 
   const allDates = eachDayOfInterval({
-    start: subDays(new Date(), numDays - 1),
+    start: subDays(new Date(), numDays + 1),
     end: new Date(),
   });
 
-  let startingBalance = accountSize;
+  let currentBalance = 0;
 
   const data = allDates.map((date) => {
     return {
       label: format(date, "MMM dd"),
       profit: userTrades
         .filter((trade) => isSameDay(date, new Date(trade.date)))
-        .reduce((acc, cur) => (startingBalance += cur.profit), startingBalance),
+        .reduce((acc, cur) => (currentBalance += cur.profit), currentBalance),
     };
   });
-
-  const drawdown = accountSize * 0.98;
 
   return (
     <div className="border mt-5 p-4">
       <h2 className="mb-3 font-semibold">Equity growth</h2>
 
-      <ResponsiveContainer height={300} width="100%">
+      <ResponsiveContainer height={400} width="100%">
         <AreaChart data={data}>
           <XAxis
             dataKey="label"
             tick={{ fill: colors.text }}
             tickLine={{ stroke: colors.text }}
+            interval={4}
           />
           <YAxis
-            domain={[drawdown, 11000]}
             unit="$"
             tick={{ fill: colors.text }}
             tickLine={{ stroke: colors.text }}
           />
-          <CartesianGrid strokeDasharray="4" />
+          <CartesianGrid strokeDasharray="1" />
           <Tooltip />
-          {/* <Tooltip contentStyle={{ backgroundColor: colors.background }} /> */}
           <Area
             dataKey="profit"
             type="monotone"
-            stroke={colors.totalSales.stroke}
-            fill={colors.totalSales.fill}
+            stroke={colors.profit.stroke}
+            fill={colors.profit.fill}
             strokeWidth={2}
             name="Total profit"
             unit="$"
