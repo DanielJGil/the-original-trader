@@ -1,7 +1,7 @@
 import {
   BsCurrencyDollar,
   BsFileEarmarkBarGraph,
-  BsGraphUpArrow,
+  BsGraphUp,
 } from "react-icons/bs";
 import Stat from "./Stat";
 import { useSettings } from "../settings/useSettings";
@@ -9,10 +9,7 @@ import { formatCurrency } from "../../utils/helpers";
 import Spinner from "../../ui/Spinner";
 import { PercentOutlined } from "@mui/icons-material";
 
-function Stats({ userTrades }) {
-  // Number of trades taken
-  const numTrades = userTrades.length;
-
+function Stats({ userTrades, numTrades }) {
   // Account balance
   const { settings, isLoading } = useSettings();
   if (isLoading) return <Spinner />;
@@ -31,33 +28,38 @@ function Stats({ userTrades }) {
   // Win rate
   const winningTrades = userTrades?.filter((trade) => trade.outcome === "WIN");
   const numWinningTrades = winningTrades.length;
-  const winRate = (numWinningTrades / numTrades) * 100;
+  const winRate =
+    numWinningTrades && numTrades ? (numWinningTrades / numTrades) * 100 : 0;
 
   return (
-    <div className="flex gap-6 flex-wrap">
+    <div className="flex gap-6 flex-wrap justify-center">
       <Stat
         title="Profit"
-        color="blue"
+        textColor="text-blue-800"
+        bgColor="bg-blue-100"
         icon={<PercentOutlined />}
-        value={profitInPercentage.toFixed(2)}
+        value={profitInPercentage.toFixed(2) + "%"}
       />
       <Stat
         title="Balance"
-        color="green"
+        textColor="text-green-800"
+        bgColor="bg-green-100"
         icon={<BsCurrencyDollar />}
         value={formatCurrency(balance)}
       />
       <Stat
         title="Trades"
-        color="indigo"
+        textColor="text-indigo-800"
+        bgColor="bg-indigo-100"
         icon={<BsFileEarmarkBarGraph />}
         value={numTrades}
       />
       <Stat
         title="Win rate"
-        color="yellow"
-        icon={<BsFileEarmarkBarGraph />}
-        value={winRate.toFixed(2)}
+        textColor="text-yellow-800"
+        bgColor="bg-yellow-100"
+        icon={<BsGraphUp />}
+        value={winRate.toFixed(2) + "%"}
       />
     </div>
   );
