@@ -6,8 +6,13 @@ import {
   ResponsiveContainer,
   Tooltip,
 } from "recharts";
+import { useDarkMode } from "../../context/DarkModeContext";
 
 function OutcomeChart({ userTrades }) {
+  const { isDarkMode } = useDarkMode();
+  const border = !isDarkMode ? "border" : "";
+  const background = isDarkMode ? "bg-[#18212f]" : "";
+
   let win = 0;
   let loss = 0;
   let breakEven = 0;
@@ -20,22 +25,22 @@ function OutcomeChart({ userTrades }) {
     {
       outcome: "WIN",
       value: win,
-      color: "#22c55e",
+      color: isDarkMode ? "#15803d" : "#22c55e",
     },
     {
       outcome: "LOSS",
       value: loss,
-      color: "#ef4444",
+      color: isDarkMode ? "#b91c1c" : "#ef4444",
     },
     {
       outcome: "BREAK EVEN",
       value: breakEven,
-      color: "#b348ff",
+      color: isDarkMode ? "#1d4ed8" : "#3b82f6",
     },
   ];
 
   return (
-    <div className="p-4 h-[20rem] w-full border rounded-md">
+    <div className={`p-4 h-[20rem] w-full ${border} rounded-md ${background} `}>
       <h2 className="font-semibold">Outcome summary</h2>
 
       <ResponsiveContainer width="100%">

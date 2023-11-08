@@ -7,9 +7,16 @@ import Stat from "./Stat";
 import { useSettings } from "../settings/useSettings";
 import { formatCurrency } from "../../utils/helpers";
 import Spinner from "../../ui/Spinner";
-import { PercentOutlined } from "@mui/icons-material";
+import {
+  EqualizerOutlined,
+  PercentOutlined,
+  TrendingUpOutlined,
+} from "@mui/icons-material";
+import { useDarkMode } from "../../context/DarkModeContext";
 
 function Stats({ userTrades, numTrades }) {
+  const { isDarkMode } = useDarkMode();
+
   // Account balance
   const { settings, isLoading } = useSettings();
   if (isLoading) return <Spinner />;
@@ -35,30 +42,30 @@ function Stats({ userTrades, numTrades }) {
     <div className="flex gap-6 flex-wrap justify-between">
       <Stat
         title="Profit"
-        textColor="text-blue-800"
-        bgColor="bg-blue-100"
-        icon={<PercentOutlined />}
+        textColor={isDarkMode ? "text-slate-100" : "text-blue-800"}
+        bgColor={isDarkMode ? "bg-blue-800" : "bg-blue-100"}
+        icon={<PercentOutlined fontSize="inherit" />}
         value={profitInPercentage.toFixed(2) + "%"}
       />
       <Stat
         title="Balance"
-        textColor="text-green-800"
-        bgColor="bg-green-100"
+        textColor={isDarkMode ? "text-slate-100" : "text-green-800"}
+        bgColor={isDarkMode ? "bg-green-800" : "bg-green-100"}
         icon={<BsCurrencyDollar />}
         value={formatCurrency(balance)}
       />
       <Stat
         title="Trades"
-        textColor="text-indigo-800"
-        bgColor="bg-indigo-100"
-        icon={<BsFileEarmarkBarGraph />}
+        textColor={isDarkMode ? "text-slate-100" : "text-indigo-800"}
+        bgColor={isDarkMode ? "bg-indigo-800" : "bg-indigo-100"}
+        icon={<EqualizerOutlined fontSize="large" />}
         value={numTrades}
       />
       <Stat
         title="Win rate"
-        textColor="text-yellow-800"
-        bgColor="bg-yellow-100"
-        icon={<BsGraphUp />}
+        textColor={isDarkMode ? "text-slate-100" : "text-yellow-800"}
+        bgColor={isDarkMode ? "bg-yellow-700" : "bg-yellow-100"}
+        icon={<TrendingUpOutlined fontSize="large" />}
         value={winRate.toFixed(2) + "%"}
       />
     </div>

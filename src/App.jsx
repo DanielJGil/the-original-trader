@@ -10,13 +10,14 @@ import Account from "./pages/Account";
 import Settings from "./pages/Settings";
 
 import { createTheme } from "@mui/material";
-import { blueGrey, indigo } from "@mui/material/colors";
+import { blueGrey, indigo, lightBlue } from "@mui/material/colors";
 import { ThemeProvider } from "@emotion/react";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 import Login from "./pages/Login";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import Signup from "./pages/Signup";
+import { useDarkMode } from "./context/DarkModeContext";
 
 const theme = createTheme({
   palette: {
@@ -31,11 +32,21 @@ const theme = createTheme({
   typography: { fontFamily: ["Poppins", "sans-serif"].join(",") },
 });
 
-// const darkTheme = createTheme({
-//   palette: {
-//     mode: "dark",
-//   },
-// });
+const darkTheme = createTheme({
+  palette: {
+    primary: lightBlue,
+    background: {
+      default: "#111827",
+      paper: "#18212f",
+    },
+    text: {
+      primary: "#f1f5f9",
+      secondary: blueGrey[500],
+    },
+  },
+
+  typography: { fontFamily: ["Poppins", "sans-serif"].join(",") },
+});
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -46,15 +57,17 @@ const queryClient = new QueryClient({
 });
 
 function App() {
+  const { isDarkMode } = useDarkMode();
+
   return (
     <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
       <BrowserRouter>
         <Routes>
           <Route
             element={
               <ProtectedRoute>
-                <ThemeProvider theme={theme}>
+                <ThemeProvider theme={isDarkMode ? darkTheme : theme}>
                   <AppLayout />
                 </ThemeProvider>
               </ProtectedRoute>

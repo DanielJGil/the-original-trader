@@ -11,26 +11,13 @@ import {
 } from "recharts";
 
 import dayjs from "dayjs";
-
-const colors = {
-  profit: { stroke: "#4f46e5", fill: "#c7d2fe" },
-  text: "#374151",
-  background: "#fff",
-};
-
-// const colors = isDarkMode
-// ? {
-//     profit: { stroke: "#4f46e5", fill: "#4f46e5" },
-//     text: "#e5e7eb",
-//     background: "#18212f",
-//   }
-// : {
-//     profit: { stroke: "#4f46e5", fill: "#c7d2fe" },
-//     text: "#374151",
-//     background: "#fff",
-//   };
+import { useDarkMode } from "../../context/DarkModeContext";
 
 function ProfitChart({ userTrades }) {
+  const { isDarkMode } = useDarkMode();
+  const border = !isDarkMode ? "border" : "";
+  const background = isDarkMode ? "bg-[#18212f]" : "";
+
   const dates = userTrades.map((trade) => dayjs(trade.date));
 
   let startDate = dates[0];
@@ -57,8 +44,20 @@ function ProfitChart({ userTrades }) {
     };
   });
 
+  const colors = isDarkMode
+    ? {
+        profit: { stroke: "#4f46e5", fill: "#4f46e5" },
+        text: "#e5e7eb",
+        background: "#18212f",
+      }
+    : {
+        profit: { stroke: "#4f46e5", fill: "#c7d2fe" },
+        text: "#374151",
+        background: "#fff",
+      };
+
   return (
-    <div className="border mt-5 p-4 rounded-md">
+    <div className={`${border} ${background} mt-5 p-4 rounded-md`}>
       <h2 className="mb-3 font-semibold">
         Account growth from {startDate.format("D MMM YYYY")} &mdash;{" "}
         {endDate.format("D MMM YYYY")}
@@ -77,7 +76,7 @@ function ProfitChart({ userTrades }) {
             tick={{ fill: colors.text }}
             tickLine={{ stroke: colors.text }}
           />
-          <CartesianGrid strokeDasharray="1" />
+          <CartesianGrid strokeDasharray="4" opacity={isDarkMode ? 0.1 : 0.5} />
           <Tooltip />
           <Area
             dataKey="profit"

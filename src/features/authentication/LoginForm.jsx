@@ -33,6 +33,10 @@ function LoginForm() {
 
   return (
     <div className="flex flex-col gap-6">
+      {/* <div className="flex items-center justify-center">
+        <img src="original.png" alt="" className="w-[15rem]" />
+      </div> */}
+
       <div className="flex justify-center">
         <h2 className="font-semibold text-2xl">Log in to your account</h2>
       </div>

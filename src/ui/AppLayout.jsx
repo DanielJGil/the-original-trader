@@ -22,18 +22,24 @@ import styled from "@emotion/styled";
 import Logout from "../features/authentication/Logout";
 import { Button } from "@mui/material";
 import UserAvatar from "../features/authentication/UserAvatar";
+import DarkModeToggle from "./DarkModeToggle";
+import { useDarkMode } from "../context/DarkModeContext";
 
 const RouterLink = styled(NavLink)(({ theme }) => ({
   color: "black",
 
   "&.active": {
-    color: "#4338ca",
+    color: "#add8e6",
   },
 }));
 
 const drawerWidth = 260;
 
 function AppLayout(props) {
+  const { isDarkMode } = useDarkMode();
+
+  const border = !isDarkMode ? "border-b-[1px]" : "";
+
   const navigate = useNavigate();
 
   const { window } = props;
@@ -42,6 +48,16 @@ function AppLayout(props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  // const RouterLink = styled(NavLink)(({ theme }) => ({
+  //   color: "black",
+
+  //   "&.active": {
+  //     color: !isDarkMode ? "#4338ca" : "#add8e6",
+  //   },
+  // }));
+
+  // const drawerWidth = 260;
 
   const drawer = (
     <div>
@@ -97,13 +113,13 @@ function AppLayout(props) {
       <CssBaseline />
 
       <AppBar
-        className="border-b-[1px]"
+        className={`${border}`}
         elevation={0}
         position="fixed"
         sx={{
           width: { md: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
-          backgroundColor: "#fff",
+          backgroundColor: !isDarkMode ? "#fff" : "#18212f",
         }}
       >
         <Toolbar
@@ -120,7 +136,7 @@ function AppLayout(props) {
             sx={{
               mr: 4,
               display: { sm: "block", md: "none" },
-              color: "#000",
+              color: !isDarkMode ? "#000" : "#f1f5f9",
               paddingRight: { sm: 1.6 },
               paddingLeft: { sm: 1.6 },
               paddingTop: { sm: 0.8 },
@@ -145,6 +161,7 @@ function AppLayout(props) {
               >
                 <HiOutlineUser />
               </Button>
+              <DarkModeToggle />
               <Logout />
             </div>
           </div>

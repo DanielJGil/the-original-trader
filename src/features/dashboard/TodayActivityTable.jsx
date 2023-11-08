@@ -2,16 +2,16 @@ import * as React from "react";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { useTrades } from "../trades/useTrades";
 import { useUser } from "../authentication/useUser";
 import dayjs from "dayjs";
 import clsx from "clsx";
 import Spinner from "../../ui/Spinner";
+import { useDarkMode } from "../../context/DarkModeContext";
 
 const columns = [
   {
@@ -46,6 +46,9 @@ const columns = [
 export default function TodayActivityTable() {
   const { trades, isLoading } = useTrades();
   const { user } = useUser();
+  const { isDarkMode } = useDarkMode();
+
+  const border = !isDarkMode ? "border" : "";
 
   const tradesWithFormattedDate = trades?.map((trade) => ({
     ...trade,
@@ -68,17 +71,28 @@ export default function TodayActivityTable() {
     <Paper
       sx={{ width: "100%", overflow: "hidden" }}
       elevation={0}
-      className="border rounded-md"
+      className={`${border} rounded-md`}
     >
       <TableContainer sx={{ maxHeight: 300, minHeight: 300 }}>
-        <Table stickyHeader aria-label="sticky table">
+        <Table
+          stickyHeader
+          aria-label="sticky table"
+          sx={{
+            [`& .${tableCellClasses.root}`]: {
+              borderBottom: isDarkMode && "solid #282c35 1px",
+            },
+          }}
+        >
           <TableHead>
             <TableRow>
               {columns.map((column) => (
                 <TableCell
                   key={column.id}
                   align={column.align}
-                  style={{ minWidth: column.minWidth }}
+                  style={{
+                    minWidth: column.minWidth,
+                    backgroundColor: isDarkMode && "#18212f",
+                  }}
                 >
                   {column.label}
                 </TableCell>
@@ -86,17 +100,13 @@ export default function TodayActivityTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {todayTrades.map((row) => {
+            {userTrades.map((row) => {
               return (
                 <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                   {columns.map((column) => {
                     const value = row[column.id];
                     return (
-                      <TableCell
-                        key={column.id}
-                        align={column.align}
-                        // style={{ color: "red" }}
-                      >
+                      <TableCell key={column.id} align={column.align}>
                         {column.format && typeof value === "number"
                           ? column.format(value)
                           : value}
