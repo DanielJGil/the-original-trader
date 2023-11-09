@@ -17,9 +17,9 @@ function OutcomeChart({ userTrades }) {
   let loss = 0;
   let breakEven = 0;
 
-  userTrades.map((trade) => trade.outcome === "WIN" && win++);
-  userTrades.map((trade) => trade.outcome === "LOSS" && loss++);
-  userTrades.map((trade) => trade.outcome === "BREAK EVEN" && breakEven++);
+  userTrades?.map((trade) => trade.outcome === "WIN" && win++);
+  userTrades?.map((trade) => trade.outcome === "LOSS" && loss++);
+  userTrades?.map((trade) => trade.outcome === "BREAK EVEN" && breakEven++);
 
   const data = [
     {
@@ -39,8 +39,12 @@ function OutcomeChart({ userTrades }) {
     },
   ];
 
+  // return <Skeleton variant="rounded" width={"100%"} height={320} />;
+
   return (
-    <div className={`p-4 h-[20rem] w-full ${border} rounded-md ${background} `}>
+    <div
+      className={`p-4 h-[20rem] w-full  ${border} rounded-md ${background} `}
+    >
       <h2 className="font-semibold">Outcome summary</h2>
 
       <ResponsiveContainer width="100%">

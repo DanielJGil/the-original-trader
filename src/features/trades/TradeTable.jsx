@@ -3,7 +3,7 @@ import { useState } from "react";
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import BasicModal from "../../ui/BasicModal";
-import { Button, Paper, Typography } from "@mui/material";
+import { Button, Paper, Skeleton, Typography } from "@mui/material";
 import clsx from "clsx";
 import Spinner from "../../ui/Spinner";
 
@@ -13,6 +13,7 @@ import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
 import { ErrorOutline } from "@mui/icons-material";
 import { useUser } from "../authentication/useUser";
+import { useDarkMode } from "../../context/DarkModeContext";
 
 const columns = [
   { field: "date", headerName: "Date", width: 200 },
@@ -84,6 +85,8 @@ const deleteModalStyle = {
 };
 
 export default function DataTable() {
+  const { isDarkMode } = useDarkMode();
+
   const navigate = useNavigate();
 
   const [selectedRowId, setSelectedRowId] = useState("");
@@ -109,9 +112,10 @@ export default function DataTable() {
     (trade) => trade.userId === user.id
   );
 
-  if (isLoading) return <Spinner />;
+  if (isLoading)
+    return <Skeleton variant="rounded" width={"100%"} height={630} />;
 
-  if (!userTrades.length)
+  if (!isLoading && !userTrades.length)
     return (
       <div className="flex justify-center mt-20 font-semibold">
         <Paper elevation={4} sx={{ padding: 3 }}>
@@ -124,7 +128,7 @@ export default function DataTable() {
     );
 
   return (
-    <div style={{ height: 400, width: "100%" }} className="uppercase">
+    <div style={{ height: 400, width: "100%" }} className="">
       <DataGrid
         sx={{
           "& .MuiDataGrid-cell:focus-within": {
@@ -136,8 +140,33 @@ export default function DataTable() {
           "& .color.positive": {
             color: "#16a34a",
           },
+
+          border: isDarkMode && 0,
+          backgroundColor: isDarkMode && "#18212f",
+          fontWeight: 500,
+
+          "& .MuiDataGrid-cell": {
+            borderBottom: isDarkMode && 1,
+            borderBottomColor: isDarkMode && "#282c35",
+          },
+
+          ".MuiDataGrid-columnSeparator": {
+            display: "none",
+          },
+
+          ".MuiDataGrid-columnHeaders ": {
+            borderBottomColor: isDarkMode && "#282c35",
+          },
+
+          ".MuiDataGrid-footerContainer ": {
+            borderTopColor: isDarkMode && "#282c35",
+          },
+
+          ".MuiSvgIcon-root": {
+            color: isDarkMode && "#f1f5f9",
+          },
         }}
-        rows={userTrades}
+        rows={!isLoading && userTrades}
         columns={columns}
         initialState={{
           pagination: {
@@ -151,6 +180,7 @@ export default function DataTable() {
           setSelectedRowId(rows.id);
         }}
         rowSelection={false}
+        disableColumnMenu
       />
       {optionsModalOpen && (
         <BasicModal

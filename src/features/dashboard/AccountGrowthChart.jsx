@@ -18,7 +18,7 @@ function ProfitChart({ userTrades }) {
   const border = !isDarkMode ? "border" : "";
   const background = isDarkMode ? "bg-[#18212f]" : "";
 
-  const dates = userTrades.map((trade) => dayjs(trade.date));
+  const dates = userTrades?.map((trade) => dayjs(trade.date));
 
   let startDate = dates[0];
   for (let i = 0; i < dates.length; i++) {

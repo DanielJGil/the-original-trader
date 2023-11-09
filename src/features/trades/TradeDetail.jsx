@@ -1,4 +1,4 @@
-import { Button, InputAdornment, TextField, Typography } from "@mui/material";
+import { Button, InputAdornment, TextField } from "@mui/material";
 import { useTrade } from "./useTrade";
 import Spinner from "../../ui/Spinner";
 import dayjs from "dayjs";

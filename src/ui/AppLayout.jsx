@@ -29,7 +29,7 @@ const RouterLink = styled(NavLink)(({ theme }) => ({
   color: "black",
 
   "&.active": {
-    color: "#add8e6",
+    color: "#af00df",
   },
 }));
 
@@ -48,16 +48,6 @@ function AppLayout(props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
-  // const RouterLink = styled(NavLink)(({ theme }) => ({
-  //   color: "black",
-
-  //   "&.active": {
-  //     color: !isDarkMode ? "#4338ca" : "#add8e6",
-  //   },
-  // }));
-
-  // const drawerWidth = 260;
 
   const drawer = (
     <div>

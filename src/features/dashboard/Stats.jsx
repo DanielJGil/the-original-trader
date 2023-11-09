@@ -13,13 +13,22 @@ import {
   TrendingUpOutlined,
 } from "@mui/icons-material";
 import { useDarkMode } from "../../context/DarkModeContext";
+import { Skeleton } from "@mui/material";
 
 function Stats({ userTrades, numTrades }) {
   const { isDarkMode } = useDarkMode();
 
   // Account balance
   const { settings, isLoading } = useSettings();
-  if (isLoading) return <Spinner />;
+  if (isLoading)
+    return (
+      <div className="w-full flex flex-col md:flex-row gap-6">
+        <Skeleton variant="rounded" width={"100%"} height={80} />
+        <Skeleton variant="rounded" width={"100%"} height={80} />
+        <Skeleton variant="rounded" width={"100%"} height={80} />
+        <Skeleton variant="rounded" width={"100%"} height={80} />
+      </div>
+    );
   const { accountSize } = settings;
 
   const balance = userTrades?.reduce(
@@ -39,7 +48,7 @@ function Stats({ userTrades, numTrades }) {
     numWinningTrades && numTrades ? (numWinningTrades / numTrades) * 100 : 0;
 
   return (
-    <div className="flex gap-6 flex-wrap justify-between">
+    <div className="w-full flex gap-6 flex-wrap justify-between">
       <Stat
         title="Profit"
         textColor={isDarkMode ? "text-slate-100" : "text-blue-800"}
@@ -54,6 +63,7 @@ function Stats({ userTrades, numTrades }) {
         icon={<BsCurrencyDollar />}
         value={formatCurrency(balance)}
       />
+
       <Stat
         title="Trades"
         textColor={isDarkMode ? "text-slate-100" : "text-indigo-800"}

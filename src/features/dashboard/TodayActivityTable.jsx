@@ -12,6 +12,7 @@ import dayjs from "dayjs";
 import clsx from "clsx";
 import Spinner from "../../ui/Spinner";
 import { useDarkMode } from "../../context/DarkModeContext";
+import { Skeleton } from "@mui/material";
 
 const columns = [
   {
@@ -61,17 +62,32 @@ export default function TodayActivityTable() {
 
   const today = dayjs(new Date()).format("D MM YYYY");
 
-  const todayTrades = userTrades.filter(
+  const todayTrades = userTrades?.filter(
     (trade) => dayjs(trade.date).format("D MM YYYY") === today
   );
 
-  if (isLoading) return <Spinner />;
+  if (isLoading)
+    return <Skeleton variant="rounded" width={"100%"} height={320} />;
 
-  return (
+  return !todayTrades.length ? (
     <Paper
-      sx={{ width: "100%", overflow: "hidden" }}
+      sx={{
+        width: "100%",
+        overflow: "hidden",
+        borderRadius: "6px",
+        minHeight: "200px",
+        minWidth: "300px",
+      }}
       elevation={0}
-      className={`${border} rounded-md`}
+      className={`${border} flex items-center justify-center font-semibold text-lg`}
+    >
+      No trades have been taken today...
+    </Paper>
+  ) : (
+    <Paper
+      sx={{ width: "100%", overflow: "hidden", borderRadius: "6px" }}
+      elevation={0}
+      className={`${border}`}
     >
       <TableContainer sx={{ maxHeight: 300, minHeight: 300 }}>
         <Table
@@ -92,6 +108,7 @@ export default function TodayActivityTable() {
                   style={{
                     minWidth: column.minWidth,
                     backgroundColor: isDarkMode && "#18212f",
+                    fontWeight: 600,
                   }}
                 >
                   {column.label}
@@ -100,13 +117,19 @@ export default function TodayActivityTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {userTrades.map((row) => {
+            {todayTrades.map((row) => {
               return (
                 <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                   {columns.map((column) => {
                     const value = row[column.id];
                     return (
-                      <TableCell key={column.id} align={column.align}>
+                      <TableCell
+                        key={column.id}
+                        align={column.align}
+                        style={{
+                          fontWeight: 500,
+                        }}
+                      >
                         {column.format && typeof value === "number"
                           ? column.format(value)
                           : value}
