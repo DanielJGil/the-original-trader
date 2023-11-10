@@ -29,7 +29,7 @@ const RouterLink = styled(NavLink)(({ theme }) => ({
   color: "black",
 
   "&.active": {
-    color: "#af00df",
+    color: "#2e66ff",
   },
 }));
 
@@ -38,7 +38,9 @@ const drawerWidth = 260;
 function AppLayout(props) {
   const { isDarkMode } = useDarkMode();
 
-  const border = !isDarkMode ? "border-b-[1px]" : "";
+  const border = !isDarkMode
+    ? "border-b-[1px]"
+    : "border-b-[1px] border-[#111827]";
 
   const navigate = useNavigate();
 

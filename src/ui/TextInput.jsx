@@ -9,6 +9,7 @@ export default function TextInput({
   error,
   helperText,
   disabled,
+  sx,
 }) {
   return (
     <Box
@@ -28,6 +29,7 @@ export default function TextInput({
         error={error}
         helperText={helperText}
         disabled={disabled}
+        sx={sx}
       />
     </Box>
   );

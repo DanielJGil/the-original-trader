@@ -24,6 +24,7 @@ const theme = createTheme({
     primary: {
       main: indigo[500],
     },
+
     text: {
       primary: blueGrey[800],
     },

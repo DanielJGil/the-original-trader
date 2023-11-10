@@ -2,9 +2,12 @@ import { useForm } from "react-hook-form";
 import { useUpdateUser } from "./useUpdateUser";
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
+import { useDarkMode } from "../../context/DarkModeContext";
 
 function UpdatePasswordForm() {
   const [isUpdating, setIsUpdating] = useState(false);
+
+  const { isDarkMode } = useDarkMode();
 
   const { register, handleSubmit, formState, getValues, reset } = useForm();
   const { errors } = formState;
@@ -36,7 +39,20 @@ function UpdatePasswordForm() {
           id="password"
           size="small"
           fullWidth
-          sx={{ maxWidth: "25rem" }}
+          sx={{
+            maxWidth: "25rem",
+            "& .MuiInputBase-input": {
+              WebkitTextFillColor: isDarkMode ? "#f1f5f9" : "#37474f",
+            },
+            "& .MuiInputBase-root": {
+              "& > fieldset": {
+                borderColor: isDarkMode && "#2e66ff",
+              },
+            },
+            "& .MuiFormLabel-root": {
+              color: isDarkMode && "#f1f5f9",
+            },
+          }}
           disabled={isUpdating}
           type="password"
           error={errors?.password?.message && true}
@@ -57,7 +73,20 @@ function UpdatePasswordForm() {
           id="passwordConfirm"
           size="small"
           fullWidth
-          sx={{ maxWidth: "25rem" }}
+          sx={{
+            maxWidth: "25rem",
+            "& .MuiInputBase-input": {
+              WebkitTextFillColor: isDarkMode ? "#f1f5f9" : "#37474f",
+            },
+            "& .MuiInputBase-root": {
+              "& > fieldset": {
+                borderColor: isDarkMode && "#2e66ff",
+              },
+            },
+            "& .MuiFormLabel-root": {
+              color: isDarkMode && "#f1f5f9",
+            },
+          }}
           disabled={isUpdating}
           type="password"
           error={errors?.passwordConfirm?.message && true}

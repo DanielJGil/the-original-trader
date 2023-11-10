@@ -1,12 +1,15 @@
-import { Button, InputAdornment, TextField } from "@mui/material";
+import { Button, InputAdornment, Skeleton, TextField } from "@mui/material";
 import { useTrade } from "./useTrade";
 import Spinner from "../../ui/Spinner";
 import dayjs from "dayjs";
 import { formatCurrency } from "../../utils/helpers";
 import { useNavigate } from "react-router-dom";
+import { useDarkMode } from "../../context/DarkModeContext";
 
 function TradeDetail() {
   const navigate = useNavigate();
+
+  const { isDarkMode } = useDarkMode();
 
   const { trade, isLoading } = useTrade();
 
@@ -28,7 +31,7 @@ function TradeDetail() {
   return (
     <>
       <div className="mb-5 flex justify-between">
-        <h1 className="font-semibold text-2xl">Trade Details</h1>
+        <h1 className="font-semibold text-3xl">Trade Details</h1>
 
         <Button
           variant="outlined"
@@ -39,13 +42,21 @@ function TradeDetail() {
         </Button>
       </div>
 
-      <div className="border border-slate-300 rounded">
+      <div>
         <div
-          className={`flex justify-between items-center ${
-            outcome === "WIN" && "bg-green-300"
-          } ${outcome === "LOSS" && "bg-red-300"} ${
-            outcome === "BREAK EVEN" && "bg-slate-200"
-          } p-4 items-center `}
+          className={
+            isDarkMode
+              ? `flex justify-between items-center ${
+                  outcome === "WIN" && "bg-green-700"
+                } ${outcome === "LOSS" && "bg-red-700"} ${
+                  outcome === "BREAK EVEN" && "bg-slate-700"
+                } p-4 items-center rounded-md`
+              : `flex justify-between items-center ${
+                  outcome === "WIN" && "bg-green-400"
+                } ${outcome === "LOSS" && "bg-red-400"} ${
+                  outcome === "BREAK EVEN" && "bg-slate-300"
+                } p-4 items-center rounded-md`
+          }
         >
           <div className="flex gap-3 items-center">
             <p className="font-semibold text-xl">{pair}</p>
@@ -56,7 +67,11 @@ function TradeDetail() {
 
         <div className="p-5">
           <div className="mb-6">
-            <img src={image} alt="trade" />
+            {isLoading ? (
+              <Skeleton variant="rounded" width={"100%"} height={400} />
+            ) : (
+              <img src={image} alt="trade" />
+            )}
           </div>
 
           <div
@@ -70,7 +85,15 @@ function TradeDetail() {
               disabled
               sx={{
                 "& .MuiInputBase-input.Mui-disabled": {
-                  WebkitTextFillColor: "#37474f",
+                  WebkitTextFillColor: isDarkMode ? "#f1f5f9" : "#37474f",
+                },
+                "& .MuiInputBase-root.Mui-disabled": {
+                  "& > fieldset": {
+                    borderColor: isDarkMode && "#4f5460",
+                  },
+                },
+                "& .MuiFormLabel-root.Mui-disabled": {
+                  color: isDarkMode && "#f1f5f9",
                 },
               }}
             />
@@ -83,7 +106,15 @@ function TradeDetail() {
               disabled
               sx={{
                 "& .MuiInputBase-input.Mui-disabled": {
-                  WebkitTextFillColor: "#37474f",
+                  WebkitTextFillColor: isDarkMode ? "#f1f5f9" : "#37474f",
+                },
+                "& .MuiInputBase-root.Mui-disabled": {
+                  "& > fieldset": {
+                    borderColor: isDarkMode && "#4f5460",
+                  },
+                },
+                "& .MuiFormLabel-root.Mui-disabled": {
+                  color: isDarkMode && "#f1f5f9",
                 },
               }}
             />
@@ -96,7 +127,15 @@ function TradeDetail() {
               disabled
               sx={{
                 "& .MuiInputBase-input.Mui-disabled": {
-                  WebkitTextFillColor: "#37474f",
+                  WebkitTextFillColor: isDarkMode ? "#f1f5f9" : "#37474f",
+                },
+                "& .MuiInputBase-root.Mui-disabled": {
+                  "& > fieldset": {
+                    borderColor: isDarkMode && "#4f5460",
+                  },
+                },
+                "& .MuiFormLabel-root.Mui-disabled": {
+                  color: isDarkMode && "#f1f5f9",
                 },
               }}
               InputProps={{
@@ -119,7 +158,15 @@ function TradeDetail() {
                 disabled
                 sx={{
                   "& .MuiInputBase-input.Mui-disabled": {
-                    WebkitTextFillColor: "#37474f",
+                    WebkitTextFillColor: isDarkMode ? "#f1f5f9" : "#37474f",
+                  },
+                  "& .MuiInputBase-root.Mui-disabled": {
+                    "& > fieldset": {
+                      borderColor: isDarkMode && "#4f5460",
+                    },
+                  },
+                  "& .MuiFormLabel-root.Mui-disabled": {
+                    color: isDarkMode && "#f1f5f9",
                   },
                 }}
               />
@@ -138,7 +185,15 @@ function TradeDetail() {
                 disabled
                 sx={{
                   "& .MuiInputBase-input.Mui-disabled": {
-                    WebkitTextFillColor: "#37474f",
+                    WebkitTextFillColor: isDarkMode ? "#f1f5f9" : "#37474f",
+                  },
+                  "& .MuiInputBase-root.Mui-disabled": {
+                    "& > fieldset": {
+                      borderColor: isDarkMode && "#4f5460",
+                    },
+                  },
+                  "& .MuiFormLabel-root.Mui-disabled": {
+                    color: isDarkMode && "#f1f5f9",
                   },
                 }}
               />
@@ -147,11 +202,19 @@ function TradeDetail() {
         </div>
 
         <div
-          className={`flex justify-between items-center ${
-            outcome === "WIN" && "bg-green-300"
-          } ${outcome === "LOSS" && "bg-red-300"} ${
-            outcome === "BREAK EVEN" && "bg-slate-200"
-          } p-4`}
+          className={
+            isDarkMode
+              ? `flex justify-between items-center ${
+                  outcome === "WIN" && "bg-green-700"
+                } ${outcome === "LOSS" && "bg-red-700"} ${
+                  outcome === "BREAK EVEN" && "bg-slate-700"
+                } p-4 items-center rounded-md`
+              : `flex justify-between items-center ${
+                  outcome === "WIN" && "bg-green-400"
+                } ${outcome === "LOSS" && "bg-red-400"} ${
+                  outcome === "BREAK EVEN" && "bg-slate-300"
+                } p-4 rounded-md`
+          }
         >
           <p className="font-semibold text-xl">Total profit:</p>
           <p className="font-semibold text-xl">{formatCurrency(profit)}</p>

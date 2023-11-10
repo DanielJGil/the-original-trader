@@ -5,7 +5,6 @@ import { DataGrid } from "@mui/x-data-grid";
 import BasicModal from "../../ui/BasicModal";
 import { Button, Paper, Skeleton, Typography } from "@mui/material";
 import clsx from "clsx";
-import Spinner from "../../ui/Spinner";
 
 import { useTrades } from "./useTrades";
 import { useDeleteTrade } from "./useDeleteTrade";
@@ -148,6 +147,8 @@ export default function DataTable() {
           "& .MuiDataGrid-cell": {
             borderBottom: isDarkMode && 1,
             borderBottomColor: isDarkMode && "#282c35",
+            cursor: "pointer",
+            paddingLeft: 2,
           },
 
           ".MuiDataGrid-columnSeparator": {
@@ -156,6 +157,7 @@ export default function DataTable() {
 
           ".MuiDataGrid-columnHeaders ": {
             borderBottomColor: isDarkMode && "#282c35",
+            paddingLeft: 0.6,
           },
 
           ".MuiDataGrid-footerContainer ": {

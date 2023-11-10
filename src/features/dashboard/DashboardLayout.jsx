@@ -1,5 +1,4 @@
 import { Skeleton } from "@mui/material";
-import Spinner from "../../ui/Spinner";
 import { useUser } from "../authentication/useUser";
 import { useTrades } from "../trades/useTrades";
 import ProfitChart from "./AccountGrowthChart";
@@ -14,8 +13,6 @@ function DashboardLayout() {
   const userTrades = trades?.filter((trade) => trade.userId === user.id);
 
   const numTrades = userTrades?.length;
-
-  // if (isLoading) return <Spinner />;
 
   if (isLoading)
     return (

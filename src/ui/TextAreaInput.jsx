@@ -7,6 +7,7 @@ export default function TextAreaInput({
   InputProps,
   defaultValue,
   disabled,
+  sx,
 }) {
   return (
     <Box
@@ -25,6 +26,7 @@ export default function TextAreaInput({
         fullWidth
         multiline
         disabled={disabled}
+        sx={sx}
       />
     </Box>
   );

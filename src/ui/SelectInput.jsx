@@ -11,6 +11,7 @@ export default function SelectInput({
   error,
   helperText,
   disabled,
+  sx,
 }) {
   return (
     <Box
@@ -31,6 +32,7 @@ export default function SelectInput({
         error={error}
         helperText={helperText}
         disabled={disabled}
+        sx={sx}
       >
         {children}
       </TextField>

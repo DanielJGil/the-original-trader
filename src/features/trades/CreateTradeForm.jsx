@@ -15,9 +15,12 @@ import { useCreateTrade } from "./useCreateTrade";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useUser } from "../authentication/useUser";
+import { useDarkMode } from "../../context/DarkModeContext";
 
 function CreateTradeForm() {
   const navigate = useNavigate();
+
+  const { isDarkMode } = useDarkMode();
 
   const { user } = useUser();
 
@@ -58,7 +61,7 @@ function CreateTradeForm() {
 
   return (
     <div className="px-4 py-6">
-      <h2 className="mb-8 text-xl font-semibold">Add new trade</h2>
+      <h2 className="mb-8 text-3xl font-semibold">Add new trade</h2>
 
       <form onSubmit={handleSubmit(onSubmit, onError)}>
         <div className="mb-5 flex gap-6 flex-col sm:flex-row sm:justify-between">
@@ -73,6 +76,22 @@ function CreateTradeForm() {
               ...register("type", {
                 required: "This field is required",
               }),
+            }}
+            sx={{
+              "& .MuiInputBase-input": {
+                WebkitTextFillColor: isDarkMode ? "#f1f5f9" : "#37474f",
+              },
+              "& .MuiInputBase-root": {
+                "& > fieldset": {
+                  borderColor: isDarkMode && "#2e66ff",
+                },
+              },
+              "& .MuiFormLabel-root": {
+                color: isDarkMode && "#f1f5f9",
+              },
+              "& .MuiSvgIcon-root": {
+                color: isDarkMode && "#f1f5f9",
+              },
             }}
           >
             <MenuItem value="BUY">BUY</MenuItem>
@@ -91,6 +110,19 @@ function CreateTradeForm() {
                 required: "This field is required",
               }),
             }}
+            sx={{
+              "& .MuiInputBase-input": {
+                WebkitTextFillColor: isDarkMode ? "#f1f5f9" : "#37474f",
+              },
+              "& .MuiInputBase-root": {
+                "& > fieldset": {
+                  borderColor: isDarkMode && "#2e66ff",
+                },
+              },
+              "& .MuiFormLabel-root": {
+                color: isDarkMode && "#f1f5f9",
+              },
+            }}
           />
           <SelectInput
             label="SESSION"
@@ -103,6 +135,22 @@ function CreateTradeForm() {
               ...register("session", {
                 required: "This field is required",
               }),
+            }}
+            sx={{
+              "& .MuiInputBase-input": {
+                WebkitTextFillColor: isDarkMode ? "#f1f5f9" : "#37474f",
+              },
+              "& .MuiInputBase-root": {
+                "& > fieldset": {
+                  borderColor: isDarkMode && "#2e66ff",
+                },
+              },
+              "& .MuiFormLabel-root": {
+                color: isDarkMode && "#f1f5f9",
+              },
+              "& .MuiSvgIcon-root": {
+                color: isDarkMode && "#f1f5f9",
+              },
             }}
           >
             <MenuItem value="LONDON">LONDON</MenuItem>
@@ -132,6 +180,19 @@ function CreateTradeForm() {
                 },
               }),
             }}
+            sx={{
+              "& .MuiInputBase-input": {
+                WebkitTextFillColor: isDarkMode ? "#f1f5f9" : "#37474f",
+              },
+              "& .MuiInputBase-root": {
+                "& > fieldset": {
+                  borderColor: isDarkMode && "#2e66ff",
+                },
+              },
+              "& .MuiFormLabel-root": {
+                color: isDarkMode && "#f1f5f9",
+              },
+            }}
           />
 
           <SelectInput
@@ -145,6 +206,22 @@ function CreateTradeForm() {
               ...register("outcome", {
                 required: "This field is required",
               }),
+            }}
+            sx={{
+              "& .MuiInputBase-input": {
+                WebkitTextFillColor: isDarkMode ? "#f1f5f9" : "#37474f",
+              },
+              "& .MuiInputBase-root": {
+                "& > fieldset": {
+                  borderColor: isDarkMode && "#2e66ff",
+                },
+              },
+              "& .MuiFormLabel-root": {
+                color: isDarkMode && "#f1f5f9",
+              },
+              "& .MuiSvgIcon-root": {
+                color: isDarkMode && "#f1f5f9",
+              },
             }}
           >
             <MenuItem value="WIN">WIN</MenuItem>
@@ -167,6 +244,19 @@ function CreateTradeForm() {
                 required: "This field is required",
               }),
             }}
+            sx={{
+              "& .MuiInputBase-input": {
+                WebkitTextFillColor: isDarkMode ? "#f1f5f9" : "#37474f",
+              },
+              "& .MuiInputBase-root": {
+                "& > fieldset": {
+                  borderColor: isDarkMode && "#2e66ff",
+                },
+              },
+              "& .MuiFormLabel-root": {
+                color: isDarkMode && "#f1f5f9",
+              },
+            }}
           />
         </div>
 
@@ -183,7 +273,23 @@ function CreateTradeForm() {
                   sx={{ width: "100%", marginTop: "-8px" }}
                 >
                   <DatePicker
-                    sx={{ width: "100%" }}
+                    sx={{
+                      width: "100%",
+                      "& .MuiInputBase-input": {
+                        WebkitTextFillColor: isDarkMode ? "#f1f5f9" : "#37474f",
+                      },
+                      "& .MuiInputBase-root": {
+                        "& > fieldset": {
+                          borderColor: isDarkMode && "#2e66ff",
+                        },
+                      },
+                      "& .MuiFormLabel-root": {
+                        color: isDarkMode && "#f1f5f9",
+                      },
+                      "& .MuiSvgIcon-root": {
+                        color: isDarkMode && "#f1f5f9",
+                      },
+                    }}
                     slotProps={{
                       textField: {
                         error: errors?.date && true,
@@ -206,7 +312,23 @@ function CreateTradeForm() {
             render={({ field, fieldState }) => (
               <MuiFileInput
                 {...field}
-                sx={{ width: "100%" }}
+                sx={{
+                  width: "100%",
+                  "& .MuiInputBase-input": {
+                    WebkitTextFillColor: isDarkMode ? "#f1f5f9" : "#37474f",
+                  },
+                  "& .MuiInputBase-root": {
+                    "& > fieldset": {
+                      borderColor: isDarkMode && "#2e66ff",
+                    },
+                  },
+                  "& .MuiFormLabel-root": {
+                    color: isDarkMode && "#f1f5f9",
+                  },
+                  "& .MuiSvgIcon-root": {
+                    color: isDarkMode && "#f1f5f9",
+                  },
+                }}
                 label="TRADE IMAGE"
                 helperText={fieldState.invalid ? "Please add an image" : ""}
                 error={fieldState.invalid}
@@ -222,6 +344,19 @@ function CreateTradeForm() {
             defaultValue=""
             disabled={isCreating}
             InputProps={{ ...register("analysis") }}
+            sx={{
+              "& .MuiInputBase-input": {
+                WebkitTextFillColor: isDarkMode ? "#f1f5f9" : "#37474f",
+              },
+              "& .MuiInputBase-root": {
+                "& > fieldset": {
+                  borderColor: isDarkMode && "#2e66ff",
+                },
+              },
+              "& .MuiFormLabel-root": {
+                color: isDarkMode && "#f1f5f9",
+              },
+            }}
           />
         </div>
 
@@ -232,6 +367,19 @@ function CreateTradeForm() {
             defaultValue=""
             disabled={isCreating}
             InputProps={{ ...register("tradeErrors") }}
+            sx={{
+              "& .MuiInputBase-input": {
+                WebkitTextFillColor: isDarkMode ? "#f1f5f9" : "#37474f",
+              },
+              "& .MuiInputBase-root": {
+                "& > fieldset": {
+                  borderColor: isDarkMode && "#2e66ff",
+                },
+              },
+              "& .MuiFormLabel-root": {
+                color: isDarkMode && "#f1f5f9",
+              },
+            }}
           />
         </div>
 
