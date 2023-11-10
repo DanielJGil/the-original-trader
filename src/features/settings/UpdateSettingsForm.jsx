@@ -23,7 +23,7 @@ function UpdateSettingsForm() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-semibold">Update settings</h1>
+        <h1 className="text-3xl font-semibold">Update settings</h1>
       </div>
 
       <form>

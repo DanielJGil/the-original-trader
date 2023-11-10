@@ -86,7 +86,7 @@ function App() {
           <Route
             path="login"
             element={
-              <ThemeProvider theme={theme}>
+              <ThemeProvider theme={isDarkMode ? darkTheme : theme}>
                 <Login />
               </ThemeProvider>
             }
@@ -95,7 +95,7 @@ function App() {
           <Route
             path="signup"
             element={
-              <ThemeProvider theme={theme}>
+              <ThemeProvider theme={isDarkMode ? darkTheme : theme}>
                 <Signup />
               </ThemeProvider>
             }

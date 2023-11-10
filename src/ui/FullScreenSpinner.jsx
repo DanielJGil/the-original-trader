@@ -1,11 +1,11 @@
 import { useDarkMode } from "../context/DarkModeContext";
 
-function Spinner() {
+function FullScreenSpinner() {
   const { isDarkMode } = useDarkMode();
 
   return (
     <div
-      className={`flex justify-center items-center mt-[12rem] ${
+      className={`flex justify-center items-center h-screen ${
         isDarkMode && "bg-[#111827]"
       }`}
     >
@@ -14,4 +14,4 @@ function Spinner() {
   );
 }
 
-export default Spinner;
+export default FullScreenSpinner;

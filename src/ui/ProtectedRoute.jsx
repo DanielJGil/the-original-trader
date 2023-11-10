@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../features/authentication/useUser";
-import Spinner from "./Spinner";
+import FullScreenSpinner from "./FullScreenSpinner";
 import { useEffect } from "react";
 
 function ProtectedRoute({ children }) {
@@ -18,7 +18,7 @@ function ProtectedRoute({ children }) {
   );
 
   // WHILE LOADING, SHOW A SPINNER
-  if (isLoading) return <Spinner />;
+  if (isLoading) return <FullScreenSpinner />;
 
   // IF THERE IS A USER, RENDER THE APP
   if (isAuthenticated) return children;

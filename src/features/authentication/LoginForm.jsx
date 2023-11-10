@@ -2,12 +2,15 @@ import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { useLogin } from "./useLogin";
 import { useNavigate } from "react-router-dom";
+import { useDarkMode } from "../../context/DarkModeContext";
 
 function LoginForm() {
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState("guest@example.com");
-  const [password, setPassword] = useState("guestguest");
+  const { isDarkMode } = useDarkMode();
+
+  const [email, setEmail] = useState("dannyjaygil@gmail.com");
+  const [password, setPassword] = useState("fakefake");
   const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   const { login } = useLogin();
@@ -32,13 +35,23 @@ function LoginForm() {
   }
 
   return (
-    <div className="flex flex-col gap-6">
+    <div
+      className={`flex flex-col gap-6 ${
+        isDarkMode && "bg-[#111827]"
+      } w-full h-full items-center justify-center`}
+    >
       {/* <div className="flex items-center justify-center">
         <img src="original.png" alt="" className="w-[15rem]" />
       </div> */}
 
       <div className="flex justify-center">
-        <h2 className="font-semibold text-2xl">Log in to your account</h2>
+        <h2
+          className={`font-semibold text-3xl mb-5 ${
+            isDarkMode && "text-[#f1f5f9]"
+          }`}
+        >
+          Log in to your account
+        </h2>
       </div>
 
       <form
@@ -52,6 +65,19 @@ function LoginForm() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           disabled={isLoggingIn}
+          sx={{
+            "& .MuiInputBase-input": {
+              WebkitTextFillColor: isDarkMode ? "#f1f5f9" : "#37474f",
+            },
+            "& .MuiInputBase-root": {
+              "& > fieldset": {
+                borderColor: isDarkMode && "#2e66ff",
+              },
+            },
+            "& .MuiFormLabel-root": {
+              color: isDarkMode && "#f1f5f9",
+            },
+          }}
         />
 
         <TextField
@@ -62,6 +88,19 @@ function LoginForm() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           disabled={isLoggingIn}
+          sx={{
+            "& .MuiInputBase-input": {
+              WebkitTextFillColor: isDarkMode ? "#f1f5f9" : "#37474f",
+            },
+            "& .MuiInputBase-root": {
+              "& > fieldset": {
+                borderColor: isDarkMode && "#2e66ff",
+              },
+            },
+            "& .MuiFormLabel-root": {
+              color: isDarkMode && "#f1f5f9",
+            },
+          }}
         />
 
         <Button type="submit" variant="contained">
@@ -70,7 +109,9 @@ function LoginForm() {
       </form>
 
       <div className="flex flex-col justify-center items-center gap-2">
-        <p>Don't have an account?</p>
+        <p className={`${isDarkMode && "text-[#f1f5f9]"}`}>
+          Don't have an account?
+        </p>
         <Button variant="outlined" onClick={() => navigate("/signup")}>
           Create account
         </Button>

@@ -1,6 +1,5 @@
 import { Button, InputAdornment, Skeleton, TextField } from "@mui/material";
 import { useTrade } from "./useTrade";
-import Spinner from "../../ui/Spinner";
 import dayjs from "dayjs";
 import { formatCurrency } from "../../utils/helpers";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +12,28 @@ function TradeDetail() {
 
   const { trade, isLoading } = useTrade();
 
-  if (isLoading) return <Spinner />;
+  if (isLoading)
+    return (
+      <div>
+        <div className="mb-5 flex justify-between">
+          <h1 className="font-semibold text-3xl">Trade Details</h1>
+
+          <Button
+            variant="outlined"
+            size="small"
+            onClick={() => navigate("/trades")}
+          >
+            &larr; Go back
+          </Button>
+        </div>
+        <div className="flex flex-col gap-6">
+          <Skeleton variant="rounded" width={"100%"} height={65} />
+          <Skeleton variant="rounded" width={"100%"} height={400} />
+          <Skeleton variant="rounded" width={"100%"} height={200} />
+          <Skeleton variant="rounded" width={"100%"} height={65} />
+        </div>
+      </div>
+    );
 
   const {
     pair,
@@ -70,7 +90,9 @@ function TradeDetail() {
             {isLoading ? (
               <Skeleton variant="rounded" width={"100%"} height={400} />
             ) : (
-              <img src={image} alt="trade" />
+              <div className="flex min-h-[300px]">
+                <img src={image} alt="trade" />
+              </div>
             )}
           </div>
 
