@@ -30,3 +30,13 @@ export async function updateSetting(arr) {
 
   return data;
 }
+
+export async function createSettings(newSettings) {
+  const { data, error } = await supabase.from("settings").insert([newSettings]);
+
+  if (error) {
+    throw new Error("Settings could not be created");
+  }
+
+  return data;
+}

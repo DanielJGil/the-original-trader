@@ -18,6 +18,7 @@ import Login from "./pages/Login";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import Signup from "./pages/Signup";
 import { useDarkMode } from "./context/DarkModeContext";
+import SetAccountSize from "./pages/SetAccountSize";
 
 const theme = createTheme({
   palette: {
@@ -82,6 +83,15 @@ function App() {
             <Route path="account" element={<Account />} />
             <Route path="settings" element={<Settings />} />
           </Route>
+
+          <Route
+            path="setup"
+            element={
+              <ThemeProvider theme={isDarkMode ? darkTheme : theme}>
+                <SetAccountSize />
+              </ThemeProvider>
+            }
+          />
 
           <Route
             path="login"

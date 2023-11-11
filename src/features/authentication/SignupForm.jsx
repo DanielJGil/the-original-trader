@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useSignup } from "./useSignup";
 import { useState } from "react";
 import { useDarkMode } from "../../context/DarkModeContext";
+import { useLogin } from "./useLogin";
 
 function SignupForm() {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ function SignupForm() {
   const [isCreatingAccount, setIsCreatingAccount] = useState(false);
 
   const { signup } = useSignup();
+  const { login } = useLogin();
 
   const { register, formState, getValues, handleSubmit, reset } = useForm();
   const { errors } = formState;
@@ -24,7 +26,15 @@ function SignupForm() {
       { fullName, email, password },
       {
         onSuccess: () => {
-          navigate("/login");
+          login(
+            { email, password },
+            {
+              onSuccess: () => {
+                navigate("/setup");
+              },
+            }
+          );
+
           setIsCreatingAccount(false);
           reset();
         },
@@ -52,7 +62,7 @@ function SignupForm() {
       </div>
 
       <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex gap-6">
+        <div className="flex flex-col sm:flex-row gap-6">
           <TextField
             label="FULL NAME"
             id="fullName"
@@ -115,7 +125,7 @@ function SignupForm() {
           />
         </div>
 
-        <div className="flex gap-6">
+        <div className="flex flex-col sm:flex-row gap-6">
           <TextField
             label="PASSWORD"
             id="password"

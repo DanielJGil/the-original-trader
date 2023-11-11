@@ -59,7 +59,7 @@ function ProfitChart({ userTrades }) {
   return (
     <div className={`${border} ${background} mt-5 p-4 rounded-md`}>
       <h2 className="mb-3 font-semibold">
-        Account growth from {startDate.format("D MMM YYYY")} &mdash;{" "}
+        Account growth from {startDate?.format("D MMM YYYY")} &mdash;{" "}
         {endDate.format("D MMM YYYY")}
       </h2>
 

@@ -77,6 +77,18 @@ function LoginForm() {
             "& .MuiFormLabel-root": {
               color: isDarkMode && "#f1f5f9",
             },
+            "& .MuiInputBase-input.Mui-disabled": {
+              WebkitTextFillColor: isDarkMode ? "#6c7985" : "#37474f",
+              cursor: "not-allowed",
+            },
+            "& .MuiInputBase-root.Mui-disabled": {
+              "& > fieldset": {
+                borderColor: isDarkMode && "#2e66ff",
+              },
+            },
+            "& .MuiFormLabel-root.Mui-disabled": {
+              color: isDarkMode && "#f1f5f9",
+            },
           }}
         />
 
@@ -100,10 +112,33 @@ function LoginForm() {
             "& .MuiFormLabel-root": {
               color: isDarkMode && "#f1f5f9",
             },
+            "& .MuiInputBase-input.Mui-disabled": {
+              WebkitTextFillColor: isDarkMode ? "#6c7985" : "#37474f",
+              cursor: "not-allowed",
+            },
+            "& .MuiInputBase-root.Mui-disabled": {
+              "& > fieldset": {
+                borderColor: isDarkMode && "#2e66ff",
+              },
+            },
+            "& .MuiFormLabel-root.Mui-disabled": {
+              color: isDarkMode && "#f1f5f9",
+            },
           }}
         />
 
-        <Button type="submit" variant="contained">
+        <Button
+          type="submit"
+          variant="contained"
+          disabled={isLoggingIn}
+          sx={{
+            "&.Mui-disabled": {
+              background: "#434f70",
+              color: "#f1f5f9",
+              cursor: "not-allowed",
+            },
+          }}
+        >
           {isLoggingIn ? "Logging in..." : "Login"}
         </Button>
       </form>
@@ -112,7 +147,18 @@ function LoginForm() {
         <p className={`${isDarkMode && "text-[#f1f5f9]"}`}>
           Don't have an account?
         </p>
-        <Button variant="outlined" onClick={() => navigate("/signup")}>
+        <Button
+          variant="outlined"
+          disabled={isLoggingIn}
+          sx={{
+            "&.Mui-disabled": {
+              background: "#434f70",
+              color: "#f1f5f9",
+              cursor: "not-allowed",
+            },
+          }}
+          onClick={() => navigate("/signup")}
+        >
           Create account
         </Button>
       </div>

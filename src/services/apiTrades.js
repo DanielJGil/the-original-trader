@@ -17,7 +17,7 @@ export async function getTrade(id) {
   const { data: trade, error } = await supabase
     .from("trades")
     .select("*")
-    .eq("userId", id)
+    .eq("id", id)
     .single();
 
   if (error) {
