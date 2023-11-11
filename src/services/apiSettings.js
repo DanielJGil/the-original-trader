@@ -1,20 +1,27 @@
 import supabase from "./supabase";
 
-export async function getSettings() {
-  const { data, error } = await supabase.from("settings").select("*").single();
+export async function getSettings(id) {
+  const { data: trade, error } = await supabase
+    .from("settings")
+    .select("*")
+    .eq("userId", id)
+    .single();
 
   if (error) {
+    console.error(error);
     throw new Error("Settings could not be loaded");
   }
 
-  return data;
+  return trade;
 }
 
-export async function updateSetting(newSetting) {
+export async function updateSetting(arr) {
+  const [newSetting, id] = arr;
+
   const { data, error } = await supabase
     .from("settings")
     .update(newSetting)
-    .eq("id", 1)
+    .eq("userId", id)
     .single();
 
   if (error) {
