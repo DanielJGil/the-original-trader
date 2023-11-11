@@ -87,9 +87,11 @@ function App() {
           <Route
             path="setup"
             element={
-              <ThemeProvider theme={isDarkMode ? darkTheme : theme}>
-                <SetAccountSize />
-              </ThemeProvider>
+              <ProtectedRoute>
+                <ThemeProvider theme={isDarkMode ? darkTheme : theme}>
+                  <SetAccountSize />
+                </ThemeProvider>
+              </ProtectedRoute>
             }
           />
 

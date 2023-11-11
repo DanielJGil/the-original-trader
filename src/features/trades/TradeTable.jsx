@@ -117,10 +117,10 @@ export default function DataTable() {
   if (!isLoading && !userTrades.length)
     return (
       <div className="flex justify-center mt-20 font-semibold">
-        <Paper elevation={4} sx={{ padding: 3 }}>
+        <Paper elevation={0} sx={{ padding: 3 }} className="space-x-2">
           <ErrorOutline />
           <span>
-            You do not have any trades yet. Please start by adding a new one.
+            You haven't added any trades yet. Please start by adding a new one.
           </span>
         </Paper>
       </div>

@@ -40,7 +40,8 @@ function ProfitChart({ userTrades }) {
       label: format(date, "MMM dd"),
       profit: userTrades
         .filter((trade) => isSameDay(date, new Date(trade.date)))
-        .reduce((acc, cur) => (currentBalance += cur.profit), currentBalance),
+        .reduce((acc, cur) => (currentBalance += cur.profit), currentBalance)
+        .toFixed(2),
     };
   });
 
@@ -75,6 +76,8 @@ function ProfitChart({ userTrades }) {
             unit="$"
             tick={{ fill: colors.text }}
             tickLine={{ stroke: colors.text }}
+            tickCount={8}
+            // domain={[0, currentBalance + 500]}
           />
           <CartesianGrid strokeDasharray="4" opacity={isDarkMode ? 0.1 : 0.5} />
           <Tooltip />
