@@ -9,8 +9,8 @@ function LoginForm() {
 
   const { isDarkMode } = useDarkMode();
 
-  const [email, setEmail] = useState("wonof45717@jucatyo.com");
-  const [password, setPassword] = useState("fakefake");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   const { login } = useLogin();
