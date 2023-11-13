@@ -69,6 +69,10 @@ function AppLayout(props) {
             sx={{
               borderRadius: "10px",
               padding: "0.8rem",
+              ":hover": {
+                bgcolor: isDarkMode && "rgba(64, 77, 130, 0.1)",
+                color: "#2e66ff",
+              },
             }}
             component={RouterLink}
             to="/dashboard"
@@ -81,7 +85,14 @@ function AppLayout(props) {
         <ListItem key={"Trades"}>
           <ListItemButton
             className="flex gap-3 items-center justify-center"
-            sx={{ borderRadius: "10px", padding: "0.8rem" }}
+            sx={{
+              borderRadius: "10px",
+              padding: "0.8rem",
+              ":hover": {
+                bgcolor: isDarkMode && "rgba(64, 77, 130, 0.1)",
+                color: "#2e66ff",
+              },
+            }}
             component={RouterLink}
             to="/trades"
           >
@@ -93,7 +104,14 @@ function AppLayout(props) {
         <ListItem key={"Settings"}>
           <ListItemButton
             className="flex gap-3 items-center justify-center"
-            sx={{ borderRadius: "10px", padding: "0.8rem" }}
+            sx={{
+              borderRadius: "10px",
+              padding: "0.8rem",
+              ":hover": {
+                bgcolor: isDarkMode && "rgba(64, 77, 130, 0.1)",
+                color: "#2e66ff",
+              },
+            }}
             component={RouterLink}
             to="/settings"
           >
