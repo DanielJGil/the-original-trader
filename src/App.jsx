@@ -12,7 +12,6 @@ import Settings from "./pages/Settings";
 import { createTheme } from "@mui/material";
 import { blueGrey, indigo, lightBlue } from "@mui/material/colors";
 import { ThemeProvider } from "@emotion/react";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 import Login from "./pages/Login";
 import ProtectedRoute from "./ui/ProtectedRoute";
@@ -63,7 +62,6 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
       <BrowserRouter>
         <Routes>
           <Route

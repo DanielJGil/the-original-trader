@@ -51,9 +51,19 @@ function SignupForm() {
     <div
       className={`flex flex-col gap-6 ${
         isDarkMode && "bg-[#111827]"
-      } w-full h-full items-center justify-center`}
+      } w-full h-full items-center justify-start`}
     >
-      <div className="flex justify-center mb-5">
+      {isDarkMode ? (
+        <div className="flex items-center justify-center">
+          <img src="logo-white.png" alt="" className="h-[18rem]" />
+        </div>
+      ) : (
+        <div className="flex items-center justify-center">
+          <img src="logo-black.png" alt="" className="h-[18rem]" />
+        </div>
+      )}
+
+      <div className="flex justify-center mb-3">
         <h2
           className={`font-semibold text-3xl ${isDarkMode && "text-[#f1f5f9]"}`}
         >
@@ -240,7 +250,7 @@ function SignupForm() {
           />
         </div>
 
-        <div className="flex justify-end gap-3 mt-5">
+        <div className="flex justify-end gap-3 mt-3">
           <Button
             variant="outlined"
             disabled={isCreatingAccount}

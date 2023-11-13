@@ -9,7 +9,7 @@ function LoginForm() {
 
   const { isDarkMode } = useDarkMode();
 
-  const [email, setEmail] = useState("dannyjaygil@gmail.com");
+  const [email, setEmail] = useState("wonof45717@jucatyo.com");
   const [password, setPassword] = useState("fakefake");
   const [isLoggingIn, setIsLoggingIn] = useState(false);
 
@@ -36,13 +36,19 @@ function LoginForm() {
 
   return (
     <div
-      className={`flex flex-col gap-6 ${
+      className={`flex flex-col gap-3 ${
         isDarkMode && "bg-[#111827]"
-      } w-full h-full items-center justify-center`}
+      } w-full h-full items-center justify-start`}
     >
-      {/* <div className="flex items-center justify-center">
-        <img src="original.png" alt="" className="w-[15rem]" />
-      </div> */}
+      {isDarkMode ? (
+        <div className="flex items-center justify-center">
+          <img src="logo-white.png" alt="" className="h-[18rem]" />
+        </div>
+      ) : (
+        <div className="flex items-center justify-center">
+          <img src="logo-black.png" alt="" className="h-[18rem]" />
+        </div>
+      )}
 
       <div className="flex justify-center">
         <h2

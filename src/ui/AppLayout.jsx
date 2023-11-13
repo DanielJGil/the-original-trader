@@ -53,14 +53,22 @@ function AppLayout(props) {
 
   const drawer = (
     <div>
+      {isDarkMode ? (
+        <div className="flex items-center justify-center ">
+          <img src="logo-white.png" alt="logo" className="h-[12rem]" />
+        </div>
+      ) : (
+        <div className="flex items-center justify-center">
+          <img src="logo-black.png" alt="logo" className="h-[12rem]" />
+        </div>
+      )}
       <List>
         <ListItem key={"Dashboard"}>
           <ListItemButton
             className="flex gap-3 items-center justify-center"
             sx={{
               borderRadius: "10px",
-              padding: "1rem",
-              display: "flex",
+              padding: "0.8rem",
             }}
             component={RouterLink}
             to="/dashboard"
@@ -73,7 +81,7 @@ function AppLayout(props) {
         <ListItem key={"Trades"}>
           <ListItemButton
             className="flex gap-3 items-center justify-center"
-            sx={{ borderRadius: "10px", padding: "1rem" }}
+            sx={{ borderRadius: "10px", padding: "0.8rem" }}
             component={RouterLink}
             to="/trades"
           >
@@ -85,7 +93,7 @@ function AppLayout(props) {
         <ListItem key={"Settings"}>
           <ListItemButton
             className="flex gap-3 items-center justify-center"
-            sx={{ borderRadius: "10px", padding: "1rem" }}
+            sx={{ borderRadius: "10px", padding: "0.8rem" }}
             component={RouterLink}
             to="/settings"
           >
