@@ -1,12 +1,7 @@
-import {
-  BsCurrencyDollar,
-  BsFileEarmarkBarGraph,
-  BsGraphUp,
-} from "react-icons/bs";
+import { BsCurrencyDollar } from "react-icons/bs";
 import Stat from "./Stat";
 import { useSettings } from "../settings/useSettings";
 import { formatCurrency } from "../../utils/helpers";
-import Spinner from "../../ui/Spinner";
 import {
   EqualizerOutlined,
   PercentOutlined,
@@ -48,36 +43,40 @@ function Stats({ userTrades, numTrades }) {
     numWinningTrades && numTrades ? (numWinningTrades / numTrades) * 100 : 0;
 
   return (
-    <div className="w-full flex gap-6 flex-wrap justify-between">
-      <Stat
-        title="Profit"
-        textColor={isDarkMode ? "text-slate-100" : "text-blue-800"}
-        bgColor={isDarkMode ? "bg-blue-800" : "bg-blue-100"}
-        icon={<PercentOutlined fontSize="inherit" />}
-        value={profitInPercentage.toFixed(2) + "%"}
-      />
-      <Stat
-        title="Balance"
-        textColor={isDarkMode ? "text-slate-100" : "text-green-800"}
-        bgColor={isDarkMode ? "bg-green-800" : "bg-green-100"}
-        icon={<BsCurrencyDollar />}
-        value={formatCurrency(balance)}
-      />
+    <div className="w-full flex gap-6">
+      <div className="flex flex-col gap-6 w-full">
+        <Stat
+          title="Profit"
+          textColor={isDarkMode ? "text-slate-100" : "text-blue-800"}
+          bgColor={isDarkMode ? "bg-blue-800" : "bg-blue-100"}
+          icon={<PercentOutlined fontSize="inherit" />}
+          value={profitInPercentage.toFixed(2) + "%"}
+        />
+        <Stat
+          title="Balance"
+          textColor={isDarkMode ? "text-slate-100" : "text-green-800"}
+          bgColor={isDarkMode ? "bg-green-800" : "bg-green-100"}
+          icon={<BsCurrencyDollar />}
+          value={formatCurrency(balance)}
+        />
+      </div>
 
-      <Stat
-        title="Trades"
-        textColor={isDarkMode ? "text-slate-100" : "text-indigo-800"}
-        bgColor={isDarkMode ? "bg-indigo-800" : "bg-indigo-100"}
-        icon={<EqualizerOutlined fontSize="large" />}
-        value={numTrades}
-      />
-      <Stat
-        title="Win rate"
-        textColor={isDarkMode ? "text-slate-100" : "text-yellow-800"}
-        bgColor={isDarkMode ? "bg-yellow-700" : "bg-yellow-100"}
-        icon={<TrendingUpOutlined fontSize="large" />}
-        value={winRate.toFixed(2) + "%"}
-      />
+      <div className="flex flex-col gap-6 w-full">
+        <Stat
+          title="Trades"
+          textColor={isDarkMode ? "text-slate-100" : "text-indigo-800"}
+          bgColor={isDarkMode ? "bg-indigo-800" : "bg-indigo-100"}
+          icon={<EqualizerOutlined fontSize="large" />}
+          value={numTrades}
+        />
+        <Stat
+          title="Win rate"
+          textColor={isDarkMode ? "text-slate-100" : "text-yellow-800"}
+          bgColor={isDarkMode ? "bg-yellow-700" : "bg-yellow-100"}
+          icon={<TrendingUpOutlined fontSize="large" />}
+          value={winRate.toFixed(2) + "%"}
+        />
+      </div>
     </div>
   );
 }

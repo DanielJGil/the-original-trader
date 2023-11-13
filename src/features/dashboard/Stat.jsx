@@ -8,7 +8,7 @@ function Stat({ icon, title, value, textColor, bgColor }) {
 
   return (
     <div
-      className={`${border} ${background} flex xl:w-[16rem] w-full rounded-md items-center`}
+      className={`${border} ${background} flex  w-full rounded-md items-center`}
     >
       <div className="pl-3">
         <div

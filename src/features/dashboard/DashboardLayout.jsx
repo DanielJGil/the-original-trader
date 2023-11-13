@@ -41,7 +41,7 @@ function DashboardLayout() {
       </div>
 
       <div>
-        <div className="flex flex-col xl:flex-row justify-around gap-8 mb-8">
+        <div className="flex flex-col xl:flex-row gap-6 mb-6">
           <TodayActivityTable />
           <OutcomeChart userTrades={userTrades} />
         </div>

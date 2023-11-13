@@ -10,7 +10,6 @@ import { useTrades } from "../trades/useTrades";
 import { useUser } from "../authentication/useUser";
 import dayjs from "dayjs";
 import clsx from "clsx";
-import Spinner from "../../ui/Spinner";
 import { useDarkMode } from "../../context/DarkModeContext";
 import { Skeleton } from "@mui/material";
 
@@ -29,7 +28,6 @@ const columns = [
   {
     id: "profit",
     label: "Profit",
-    // type: "number",
     minWidth: 50,
     cellClassName: (params) => {
       if (params.value === null) {

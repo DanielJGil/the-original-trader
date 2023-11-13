@@ -39,8 +39,6 @@ function OutcomeChart({ userTrades }) {
     },
   ];
 
-  // return <Skeleton variant="rounded" width={"100%"} height={320} />;
-
   if (!win && !loss && !breakEven)
     return (
       <div
@@ -54,7 +52,7 @@ function OutcomeChart({ userTrades }) {
 
   return (
     <div
-      className={`p-4 h-[20rem] w-full  ${border} rounded-md ${background} `}
+      className={`p-4 h-[20rem] xl:w-[97%] w-full min-w-[300px] ${border} rounded-md ${background} `}
     >
       <h2 className="font-semibold">Outcome summary</h2>
 
