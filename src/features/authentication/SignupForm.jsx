@@ -88,6 +88,18 @@ function SignupForm() {
               "& .MuiFormLabel-root": {
                 color: isDarkMode && "#f1f5f9",
               },
+              "& .MuiInputBase-input.Mui-disabled": {
+                WebkitTextFillColor: isDarkMode ? "#6c7985" : "#37474f",
+                cursor: "not-allowed",
+              },
+              "& .MuiInputBase-root.Mui-disabled": {
+                "& > fieldset": {
+                  borderColor: isDarkMode && "#2e66ff",
+                },
+              },
+              "& .MuiFormLabel-root.Mui-disabled": {
+                color: isDarkMode && "#f1f5f9",
+              },
               width: "15rem",
             }}
           />
@@ -118,6 +130,18 @@ function SignupForm() {
                 },
               },
               "& .MuiFormLabel-root": {
+                color: isDarkMode && "#f1f5f9",
+              },
+              "& .MuiInputBase-input.Mui-disabled": {
+                WebkitTextFillColor: isDarkMode ? "#6c7985" : "#37474f",
+                cursor: "not-allowed",
+              },
+              "& .MuiInputBase-root.Mui-disabled": {
+                "& > fieldset": {
+                  borderColor: isDarkMode && "#2e66ff",
+                },
+              },
+              "& .MuiFormLabel-root.Mui-disabled": {
                 color: isDarkMode && "#f1f5f9",
               },
               width: "15rem",
@@ -156,6 +180,18 @@ function SignupForm() {
               "& .MuiFormLabel-root": {
                 color: isDarkMode && "#f1f5f9",
               },
+              "& .MuiInputBase-input.Mui-disabled": {
+                WebkitTextFillColor: isDarkMode ? "#6c7985" : "#37474f",
+                cursor: "not-allowed",
+              },
+              "& .MuiInputBase-root.Mui-disabled": {
+                "& > fieldset": {
+                  borderColor: isDarkMode && "#2e66ff",
+                },
+              },
+              "& .MuiFormLabel-root.Mui-disabled": {
+                color: isDarkMode && "#f1f5f9",
+              },
               width: "15rem",
             }}
           />
@@ -187,6 +223,18 @@ function SignupForm() {
               "& .MuiFormLabel-root": {
                 color: isDarkMode && "#f1f5f9",
               },
+              "& .MuiInputBase-input.Mui-disabled": {
+                WebkitTextFillColor: isDarkMode ? "#6c7985" : "#37474f",
+                cursor: "not-allowed",
+              },
+              "& .MuiInputBase-root.Mui-disabled": {
+                "& > fieldset": {
+                  borderColor: isDarkMode && "#2e66ff",
+                },
+              },
+              "& .MuiFormLabel-root.Mui-disabled": {
+                color: isDarkMode && "#f1f5f9",
+              },
               width: "15rem",
             }}
           />
@@ -199,6 +247,13 @@ function SignupForm() {
             onClick={() => {
               navigate("/login");
             }}
+            sx={{
+              "&.Mui-disabled": {
+                background: "#434f70",
+                color: "#f1f5f9",
+                cursor: "not-allowed",
+              },
+            }}
           >
             Cancel
           </Button>
@@ -206,8 +261,15 @@ function SignupForm() {
             variant="contained"
             type="submit"
             disabled={isCreatingAccount}
+            sx={{
+              "&.Mui-disabled": {
+                background: "#434f70",
+                color: "#f1f5f9",
+                cursor: "not-allowed",
+              },
+            }}
           >
-            Create account
+            {isCreatingAccount ? "Creating..." : "Create account"}
           </Button>
         </div>
       </form>

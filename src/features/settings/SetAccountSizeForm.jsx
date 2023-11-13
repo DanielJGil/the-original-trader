@@ -1,29 +1,34 @@
-import { Button, TextField } from "@mui/material";
+import { Button, InputAdornment, TextField } from "@mui/material";
 import { useDarkMode } from "../../context/DarkModeContext";
 import { useForm } from "react-hook-form";
 import { useUser } from "../authentication/useUser";
 import TextAreaInput from "../../ui/TextAreaInput";
 import { useCreateSettings } from "../settings/useCreateSettings";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 function SetAccountSizeForm() {
   const navigate = useNavigate();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const { isDarkMode } = useDarkMode();
-
   const { user } = useUser();
-
   const { createSettings } = useCreateSettings();
 
   const { register, formState, handleSubmit } = useForm();
   const { errors } = formState;
 
   function onSubmit(newSettings) {
-    console.log(newSettings);
+    setIsLoading(true);
 
     createSettings(newSettings, {
       onSuccess: () => {
+        setIsLoading(false);
         navigate("/dashboard");
+      },
+      onError: () => {
+        setIsLoading(false);
       },
     });
   }
@@ -34,7 +39,7 @@ function SetAccountSizeForm() {
         isDarkMode && "bg-[#111827]"
       } w-full h-full items-center justify-center`}
     >
-      <div className="flex justify-center mb-5">
+      <div className="flex justify-center mb-2">
         <h2
           className={`font-semibold text-3xl ${isDarkMode && "text-[#f1f5f9]"}`}
         >
@@ -49,11 +54,19 @@ function SetAccountSizeForm() {
             id="accountSize"
             size="small"
             defaultValue=""
+            disabled={isLoading}
             error={errors?.accountSize?.message && true}
             helperText={errors?.accountSize?.message}
             InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">$</InputAdornment>
+              ),
               ...register("accountSize", {
                 required: "This field is required",
+                minLength: {
+                  value: 1,
+                  message: "Please set your account size",
+                },
               }),
             }}
             sx={{
@@ -68,7 +81,19 @@ function SetAccountSizeForm() {
               "& .MuiFormLabel-root": {
                 color: isDarkMode && "#f1f5f9",
               },
-              width: "15rem",
+              "& .MuiInputBase-input.Mui-disabled": {
+                WebkitTextFillColor: isDarkMode ? "#6c7985" : "#37474f",
+                cursor: "not-allowed",
+              },
+              "& .MuiInputBase-root.Mui-disabled": {
+                "& > fieldset": {
+                  borderColor: isDarkMode && "#2e66ff",
+                },
+              },
+              "& .MuiFormLabel-root.Mui-disabled": {
+                color: isDarkMode && "#f1f5f9",
+              },
+              width: "20rem",
             }}
           />
         </div>
@@ -78,13 +103,29 @@ function SetAccountSizeForm() {
             label="USER ID"
             id="userId"
             defaultValue={user?.id}
-            InputProps={{ ...register("userId") }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">$</InputAdornment>
+              ),
+              ...register("userId"),
+            }}
           />
         </div>
 
-        <div className="flex justify-end gap-3 mt-5">
-          <Button variant="contained" type="submit">
-            Continue
+        <div className="flex justify-end gap-3 mt-2">
+          <Button
+            variant="contained"
+            type="submit"
+            disabled={isLoading}
+            sx={{
+              "&.Mui-disabled": {
+                background: "#434f70",
+                color: "#f1f5f9",
+                cursor: "not-allowed",
+              },
+            }}
+          >
+            {isLoading ? "Loading..." : "Continue"}
           </Button>
         </div>
       </form>
