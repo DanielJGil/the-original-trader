@@ -4,7 +4,7 @@ function Stat({ icon, title, value, textColor, bgColor }) {
   const { isDarkMode } = useDarkMode();
 
   const border = !isDarkMode ? "border" : "";
-  const background = isDarkMode ? "bg-[#18212f]" : "";
+  const background = isDarkMode ? "bg-[#18212f]" : "bg-[#fff]";
 
   return (
     <div

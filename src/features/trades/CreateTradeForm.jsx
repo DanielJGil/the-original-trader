@@ -53,17 +53,13 @@ function CreateTradeForm() {
     );
   }
 
-  function onError(errors) {
-    // console.log(errors);
-  }
-
   if (isUploading) return <Spinner />;
 
   return (
     <div className="px-4 py-6">
       <h2 className="mb-8 text-3xl font-semibold">Add new trade</h2>
 
-      <form onSubmit={handleSubmit(onSubmit, onError)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-5 flex gap-6 flex-col sm:flex-row sm:justify-between">
           <SelectInput
             label="TYPE"

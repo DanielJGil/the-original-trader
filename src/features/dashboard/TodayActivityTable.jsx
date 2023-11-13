@@ -94,6 +94,7 @@ export default function TodayActivityTable() {
           sx={{
             [`& .${tableCellClasses.root}`]: {
               borderBottom: isDarkMode && "solid #282c35 1px",
+              backgroundColor: !isDarkMode && "#fff",
             },
           }}
         >

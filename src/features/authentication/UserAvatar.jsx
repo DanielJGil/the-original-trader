@@ -11,7 +11,7 @@ function UserAvatar() {
   return (
     <div className={`flex items-center gap-3 text-sm font-medium ${textColor}`}>
       <img
-        src={avatar || "default-user.jpg"}
+        src={avatar || "/default-user.jpg"}
         alt={`Avatar of ${fullName}`}
         className="block w-[2rem] h-[2rem] aspect-square object-cover object-center rounded-full "
       />

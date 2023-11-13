@@ -11,7 +11,7 @@ import { useDarkMode } from "../../context/DarkModeContext";
 function OutcomeChart({ userTrades }) {
   const { isDarkMode } = useDarkMode();
   const border = !isDarkMode ? "border" : "";
-  const background = isDarkMode ? "bg-[#18212f]" : "";
+  const background = isDarkMode ? "bg-[#18212f]" : "bg-[#fff]";
 
   let win = 0;
   let loss = 0;

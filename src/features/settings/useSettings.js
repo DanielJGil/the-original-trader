@@ -3,7 +3,7 @@ import { getSettings } from "../../services/apiSettings";
 import { useUser } from "../authentication/useUser";
 
 export function useSettings() {
-  const { user } = useUser();
+  const { user = {} } = useUser();
 
   const {
     isLoading,

@@ -17,7 +17,7 @@ import { useSettings } from "../settings/useSettings";
 function ProfitChart({ userTrades }) {
   const { isDarkMode } = useDarkMode();
   const border = !isDarkMode ? "border" : "";
-  const background = isDarkMode ? "bg-[#18212f]" : "";
+  const background = isDarkMode ? "bg-[#18212f]" : "bg-[#fff]";
 
   const dates = userTrades?.map((trade) => dayjs(trade.date));
 

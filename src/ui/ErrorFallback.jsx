@@ -10,7 +10,7 @@ function ErrorFallback({ error, resetErrorBoundary }) {
         isDarkMode && "bg-[#111827]"
       } ${isDarkMode && "text-[#f1f5f9]"}`}
     >
-      <h1 className="font-semibold text-3xl uppercase">something went wrong</h1>
+      <h1 className="font-semibold text-3xl uppercase">Something went wrong</h1>
       <p>{error.message}</p>
       <Button variant="contained" onClick={resetErrorBoundary}>
         Try again

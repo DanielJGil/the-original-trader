@@ -55,11 +55,11 @@ function AppLayout(props) {
     <div>
       {isDarkMode ? (
         <div className="flex items-center justify-center ">
-          <img src="logo-white.png" alt="logo" className="h-[12rem]" />
+          <img src="/logo-white.png" alt="logo" className="h-[12rem]" />
         </div>
       ) : (
         <div className="flex items-center justify-center">
-          <img src="logo-black.png" alt="logo" className="h-[12rem]" />
+          <img src="/logo-black.png" alt="logo" className="h-[12rem]" />
         </div>
       )}
       <List>

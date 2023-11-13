@@ -141,7 +141,7 @@ export default function DataTable() {
           },
 
           border: isDarkMode && 0,
-          backgroundColor: isDarkMode && "#18212f",
+          backgroundColor: isDarkMode ? "#18212f" : "#fff",
           fontWeight: 500,
 
           "& .MuiDataGrid-cell": {

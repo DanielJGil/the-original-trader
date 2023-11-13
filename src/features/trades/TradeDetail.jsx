@@ -1,9 +1,16 @@
-import { Button, InputAdornment, Skeleton, TextField } from "@mui/material";
+import {
+  Button,
+  InputAdornment,
+  Paper,
+  Skeleton,
+  TextField,
+} from "@mui/material";
 import { useTrade } from "./useTrade";
 import dayjs from "dayjs";
 import { formatCurrency } from "../../utils/helpers";
 import { useNavigate } from "react-router-dom";
 import { useDarkMode } from "../../context/DarkModeContext";
+import { ErrorOutline } from "@mui/icons-material";
 
 function TradeDetail() {
   const navigate = useNavigate();
@@ -32,6 +39,19 @@ function TradeDetail() {
           <Skeleton variant="rounded" width={"100%"} height={200} />
           <Skeleton variant="rounded" width={"100%"} height={65} />
         </div>
+      </div>
+    );
+
+  if (!trade)
+    return (
+      <div className="flex justify-center items-center mt-20">
+        <Paper
+          elevation={0}
+          className="p-4 text-lg font-semibold flex items-center gap-2"
+        >
+          <ErrorOutline />
+          <span>No trade could be found</span>
+        </Paper>
       </div>
     );
 
@@ -82,7 +102,9 @@ function TradeDetail() {
             <p className="font-semibold text-xl">{pair}</p>
             <p>{outcome}</p>
           </div>
-          <p className="uppercase">{dayjs(date).format("d MMM YYYY")}</p>
+          <p className="uppercase font-semibold">
+            {dayjs(date).format("d MMM YYYY")}
+          </p>
         </div>
 
         <div className="p-5">
