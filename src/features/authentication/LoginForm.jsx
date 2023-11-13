@@ -78,7 +78,7 @@ function LoginForm() {
               color: isDarkMode && "#f1f5f9",
             },
             "& .MuiInputBase-input.Mui-disabled": {
-              WebkitTextFillColor: isDarkMode ? "#6c7985" : "#37474f",
+              WebkitTextFillColor: isDarkMode ? "#6c7985" : "#909090",
               cursor: "not-allowed",
             },
             "& .MuiInputBase-root.Mui-disabled": {
@@ -113,7 +113,7 @@ function LoginForm() {
               color: isDarkMode && "#f1f5f9",
             },
             "& .MuiInputBase-input.Mui-disabled": {
-              WebkitTextFillColor: isDarkMode ? "#6c7985" : "#37474f",
+              WebkitTextFillColor: isDarkMode ? "#6c7985" : "#909090",
               cursor: "not-allowed",
             },
             "& .MuiInputBase-root.Mui-disabled": {

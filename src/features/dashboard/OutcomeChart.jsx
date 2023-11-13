@@ -42,7 +42,7 @@ function OutcomeChart({ userTrades }) {
   if (!win && !loss && !breakEven)
     return (
       <div
-        className={`p-4 h-[20rem] w-full flex items-center justify-center ${border} rounded-md ${background} `}
+        className={`p-4 h-[20rem] xl:w-[97%] w-full min-w-[300px] flex items-center justify-center ${border} rounded-md ${background} `}
       >
         <p className="font-semibold text-lg">
           You do not have any trade data yet...

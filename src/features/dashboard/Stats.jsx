@@ -18,10 +18,14 @@ function Stats({ userTrades, numTrades }) {
   if (isLoading)
     return (
       <div className="w-full flex flex-col md:flex-row gap-6">
-        <Skeleton variant="rounded" width={"100%"} height={80} />
-        <Skeleton variant="rounded" width={"100%"} height={80} />
-        <Skeleton variant="rounded" width={"100%"} height={80} />
-        <Skeleton variant="rounded" width={"100%"} height={80} />
+        <div className="flex flex-col gap-6 w-full">
+          <Skeleton variant="rounded" width={"100%"} height={80} />
+          <Skeleton variant="rounded" width={"100%"} height={80} />
+        </div>
+        <div className="flex flex-col gap-6 w-full">
+          <Skeleton variant="rounded" width={"100%"} height={80} />
+          <Skeleton variant="rounded" width={"100%"} height={80} />
+        </div>
       </div>
     );
   const { accountSize } = settings;

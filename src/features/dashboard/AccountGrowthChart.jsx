@@ -12,6 +12,7 @@ import {
 
 import dayjs from "dayjs";
 import { useDarkMode } from "../../context/DarkModeContext";
+import { useSettings } from "../settings/useSettings";
 
 function ProfitChart({ userTrades }) {
   const { isDarkMode } = useDarkMode();
@@ -19,6 +20,19 @@ function ProfitChart({ userTrades }) {
   const background = isDarkMode ? "bg-[#18212f]" : "";
 
   const dates = userTrades?.map((trade) => dayjs(trade.date));
+
+  const { settings = {} } = useSettings();
+  const { accountSize } = settings;
+
+  const balanceAfterTrade = [];
+  let accountBalance = accountSize;
+  userTrades?.reduce(
+    (acc, cur) => balanceAfterTrade.push((accountBalance += cur.profit)),
+    accountBalance
+  );
+
+  const lowestDataValue = accountSize - Math.min(...balanceAfterTrade);
+  const highestDataValue = Math.max(...balanceAfterTrade) - accountSize;
 
   let startDate = dates[0];
   for (let i = 0; i < dates.length; i++) {
@@ -76,8 +90,12 @@ function ProfitChart({ userTrades }) {
             unit="$"
             tick={{ fill: colors.text }}
             tickLine={{ stroke: colors.text }}
-            tickCount={8}
-            // domain={[0, currentBalance + 500]}
+            tickCount={12}
+            domain={[
+              Math.ceil(-lowestDataValue / 100) * 100 - 50,
+              Math.ceil(highestDataValue / 500) * 500,
+            ]}
+            tickFormatter={(value) => value.toFixed()}
           />
           <CartesianGrid strokeDasharray="4" opacity={isDarkMode ? 0.1 : 0.5} />
           <Tooltip />
