@@ -3,7 +3,7 @@ import { useState } from "react";
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import BasicModal from "../../ui/BasicModal";
-import { Button, Paper, Skeleton, Typography } from "@mui/material";
+import { Button, Paper, Typography } from "@mui/material";
 import clsx from "clsx";
 
 import { useTrades } from "./useTrades";
@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { ErrorOutline } from "@mui/icons-material";
 import { useUser } from "../authentication/useUser";
 import { useDarkMode } from "../../context/DarkModeContext";
+import Spinner from "../../ui/Spinner";
 
 const columns = [
   { field: "date", headerName: "Date", width: 200 },
@@ -111,8 +112,7 @@ export default function DataTable() {
     (trade) => trade.userId === user.id
   );
 
-  if (isLoading)
-    return <Skeleton variant="rounded" width={"100%"} height={630} />;
+  if (isLoading) return <Spinner />;
 
   if (!isLoading && !userTrades.length)
     return (
