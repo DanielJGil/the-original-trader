@@ -54,8 +54,7 @@ and for anyone else looking to track their progress.
 # I used Supabase to create my database.
 
 My technology choices:
-Routing - React Router  return
-/ Styling - Tailwind and Material UI / Remote State Management - React Query / UI State Management - Context API / Form Management - React Hook Form
+Routing - React Router / Styling - Tailwind and Material UI / Remote State Management - React Query / UI State Management - Context API / Form Management - React Hook Form
 
 I also used other libraries such as React Icons, React Hot Toast, Recharts and DayJS.
 
