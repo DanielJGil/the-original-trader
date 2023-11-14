@@ -1,6 +1,12 @@
 # The Original Trader
 LIVE DEMO URL: the-original-trader.vercel.app
 
+If you wish to view a live demo, please login using these credentials:
+
+Guest Login Credentials: 
+Email: wonof45717@jucatyo.com
+Password: guestguest
+
 This is an application meant for traders to help them track their progress and learn from their mistakes.
 It is meant to be used as a journal where you can add the trades you have taken and then see the overall statistics and your account growth over time.
 As a trader myself, I wanted to have an application that can help me grow as a trader and help me improve my performance so I decided to build one for myself
