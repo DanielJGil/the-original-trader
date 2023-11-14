@@ -18,6 +18,9 @@ Application features:
    - A table which displays a summary of the trades you have taken today.
    - A pie chart which displays your wins, losses and trades that ended up being break even (no profit or loss).
    - A graph chart which displays your account growth overtime.
+  <img width="1470" alt="Screenshot 2023-11-14 at 14 20 21" src="https://github.com/DanielJGil/the-original-trader/assets/131858991/9407a155-b79c-4da1-94c1-839be5925281">
+
+     
 2. Trades - Here the user can view all the trades they have taken in a data table. Here are some of the current features available on the Trades page:
    - View a table which displays all the trades you have taken. You are able to sort the trades according to each category in the table.
    - Click on any trade and either view the trade (which will open up the selected trade and will display more detailed information, including an image of the trade) or delete the trade.
@@ -37,3 +40,6 @@ Remote State Management - React Query
 UI State Management - Context API
 Form Management - React Hook Form
 I also used other libraries such as React Icons, React Hot Toast, Recharts and DayJS.
+
+Here are some more screenshots of the application: 
+
