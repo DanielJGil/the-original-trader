@@ -24,7 +24,7 @@ Application features:
    - Add a new trade. This will display a form where the user can input all the relevant information regarding the trade and even add an image.
 3. Settings - Here the user can change the size of their account, which will automatically alter all the statistics according to the new size.
 4. Account - Here the user can edit their name, add a profile picture and change their password.
-5. Login and Signup - When the user first opens up the application, the user can either login to an exisiting account or create a new one.
+5. Authentication - When the user first opens up the application, the user can either login to an exisiting account or create a new one. The application cannot be accessed unless the user is logged in.
 6. Dark Mode - There is an option to change the application to Dark Mode. It will automatically open up as Dark Mode if the user's system is already set to Dark Mode.
 
 I built this application using React. I used the Material UI Library for certain components such as Buttons, Tables and the Nav Menu.
